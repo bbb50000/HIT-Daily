@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIT Daily — Healthcare IT Intelligence Feed</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #080d1a;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d1528 0%, #111e38 100%);
+      border-bottom: 1px solid #1a3050;
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 24px rgba(0,0,0,.45);
+    }
+    .hdr {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #1560a8, #2d9cdb);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 16px rgba(45,156,219,.35);
+    }
+    .logo-text h1 { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -.5px; }
+    .logo-text p  { font-size: 11px; color: #4a6080; margin-top: 2px; letter-spacing: .5px; text-transform: uppercase; }
+    .hdr-right { display: flex; align-items: center; gap: 14px; }
+    .ts { font-size: 12px; color: #3a5070; }
+
+    .btn-refresh {
+      background: linear-gradient(135deg, #1560a8, #2d9cdb);
+      color: #fff; border: none;
+      padding: 9px 18px; border-radius: 7px;
+      cursor: pointer; font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+      transition: opacity .2s, transform .15s;
+      box-shadow: 0 0 14px rgba(45,156,219,.3);
+    }
+    .btn-refresh:hover  { opacity: .88; transform: translateY(-1px); }
+    .btn-refresh:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* ── Layout ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 28px 24px 60px; }
+
+    /* ── Stats bar ── */
+    .stats { display: flex; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+    .stat {
+      background: #0f1828;
+      border: 1px solid #1a3050;
+      border-radius: 10px;
+      padding: 12px 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .stat-val { font-size: 26px; font-weight: 800; color: #2d9cdb; line-height: 1; }
+    .stat-lbl { font-size: 11px; color: #3a5070; text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; }
+
+    /* ── Filter chips ── */
+    .filters { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 22px; }
+    .chip {
+      background: transparent;
+      border: 1px solid #1a3050;
+      color: #3a5070;
+      padding: 5px 14px; border-radius: 20px;
+      cursor: pointer; font-size: 12px; font-weight: 500;
+      transition: all .2s;
+    }
+    .chip:hover, .chip.on {
+      background: rgba(21,96,168,.2);
+      border-color: #2d9cdb;
+      color: #2d9cdb;
+    }
+
+    /* ── Loading ── */
+    .loader {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .spinner {
+      display: inline-block; width: 44px; height: 44px;
+      border: 3px solid #1a3050; border-top-color: #2d9cdb;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader-txt { margin-top: 16px; color: #3a5070; font-size: 14px; }
+    .prog-wrap { width: 220px; height: 3px; background: #1a3050; border-radius: 2px; margin: 14px auto 0; overflow: hidden; }
+    .prog-bar  { height: 100%; background: linear-gradient(90deg,#1560a8,#2d9cdb); border-radius: 2px; transition: width .35s ease; }
+
+    /* ── News cards ── */
+    .feed { display: flex; flex-direction: column; gap: 14px; }
+
+    .card {
+      background: #0f1828;
+      border: 1px solid #1a3050;
+      border-radius: 12px;
+      padding: 22px 24px 20px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, #1560a8, #2d9cdb);
+      border-radius: 3px 0 0 3px;
+    }
+    .card:hover {
+      border-color: #2d9cdb;
+      transform: translateX(3px);
+      box-shadow: 0 4px 24px rgba(45,156,219,.1);
+    }
+
+    .card-meta {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .badge-src {
+      background: rgba(21,96,168,.2);
+      color: #2d9cdb;
+      border: 1px solid rgba(21,96,168,.35);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .badge-date {
+      color: #3a5070; font-size: 12px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .badge-cat {
+      background: rgba(255,255,255,.04);
+      color: #3a5070;
+      border: 1px solid #1a3050;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 10px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .4px;
+    }
+
+    .card-title {
+      font-size: 16px; font-weight: 700;
+      color: #f0f4f8; line-height: 1.45; margin-bottom: 9px;
+    }
+    .card-title a { color: inherit; text-decoration: none; transition: color .2s; }
+    .card-title a:hover { color: #2d9cdb; }
+
+    .card-body {
+      font-size: 14px; color: #7a9ab8; line-height: 1.65; margin-bottom: 14px;
+    }
+
+    .read-more {
+      color: #2d9cdb; text-decoration: none;
+      font-size: 13px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: gap .2s;
+    }
+    .read-more:hover { gap: 9px; }
+
+    /* ── Error / empty ── */
+    .error-box {
+      background: rgba(220,38,38,.05);
+      border: 1px solid rgba(220,38,38,.2);
+      border-radius: 12px; padding: 32px 28px; text-align: center;
+    }
+    .error-box h3 { font-size: 18px; color: #ef4444; margin-bottom: 10px; }
+    .error-box p  { font-size: 14px; color: #7a9ab8; line-height: 1.7; }
+    .error-box code {
+      background: rgba(255,255,255,.06); padding: 2px 7px;
+      border-radius: 4px; font-size: 12px; color: #2d9cdb;
+    }
+
+    .empty {
+      text-align: center; padding: 70px 20px;
+      color: #3a5070;
+    }
+    .empty .icon { font-size: 44px; margin-bottom: 16px; }
+    .empty h3 { font-size: 17px; color: #7a9ab8; margin-bottom: 8px; }
+    .empty p  { font-size: 13px; }
+
+    @media (max-width: 640px) {
+      .hdr { flex-direction: column; text-align: center; }
+      .card { padding: 16px 18px 14px 22px; }
+      .card-title { font-size: 14px; }
+      .card-body  { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <div class="logo">
+      <div class="logo-icon">📡</div>
+      <div class="logo-text">
+        <h1>HIT Daily</h1>
+        <p>M&amp;A &amp; Deal Intelligence Feed</p>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <span class="ts" id="ts">—</span>
+      <button class="btn-refresh" id="refreshBtn" onclick="loadNews()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        Refresh
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="stats" id="statsBar" style="display:none">
+    <div class="stat">
+      <div>
+        <div class="stat-val" id="cntArticles">0</div>
+        <div class="stat-lbl">Articles</div>
+      </div>
+    </div>
+    <div class="stat">
+      <div>
+        <div class="stat-val" id="cntSources">0</div>
+        <div class="stat-lbl">Sources</div>
+      </div>
+    </div>
+    <div class="stat">
+      <div>
+        <div class="stat-val" id="cntCats">0</div>
+        <div class="stat-lbl">Feeds</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters" id="filterBar" style="display:none">
+    <button class="chip on" data-src="all">All Sources</button>
+    <button class="chip" data-src="fierce">Fierce Healthcare</button>
+    <button class="chip" data-src="beckers">Becker's</button>
+    <button class="chip" data-src="hitn">HIT News</button>
+    <button class="chip" data-src="modern">Modern Healthcare</button>
+    <button class="chip" data-src="medcity">MedCity News</button>
+    <button class="chip" data-src="mobi">MobiHealthNews</button>
+    <button class="chip" data-src="hitc">HIT Consultant</button>
+    <button class="chip" data-src="hita">HIT Analytics</button>
+    <button class="chip" data-src="hcdive">Healthcare Dive</button>
+    <button class="chip" data-src="hdm">Health Data Mgmt</button>
+    <button class="chip" data-src="hcig">HC Innovation</button>
+    <button class="chip" data-src="hlm">HealthLeaders</button>
+    <button class="chip" data-src="rcint">RevCycle Intel</button>
+    <button class="chip" data-src="ehrint">EHR Intelligence</button>
+    <button class="chip" data-src="payint">Payer Intelligence</button>
+    <button class="chip" data-src="pateng">Patient Engagement</button>
+    <button class="chip" data-src="biopharma">BioPharma Dive</button>
+    <button class="chip" data-src="fbiote">Fierce Biotech</button>
+    <button class="chip" data-src="fpharma">Fierce Pharma</button>
+    <button class="chip" data-src="stat">STAT News</button>
+    <button class="chip" data-src="tc">TechCrunch</button>
+    <button class="chip" data-src="hcfin">HC Finance News</button>
+    <button class="chip" data-src="bizwire">Business Wire</button>
+    <button class="chip" data-src="gnw">GlobeNewsWire</button>
+    <button class="chip" data-src="prn">PR Newswire</button>
+  </div>
+
+  <div id="feed">
+    <div class="loader">
+      <div class="spinner"></div>
+      <div class="loader-txt" id="loaderTxt">Fetching health IT M&amp;A deals…</div>
+      <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────
+   RSS feeds + proxy
+───────────────────────────────────────────── */
+// rss2json.com converts RSS to CORS-safe JSON.
+const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
+const FEEDS = [
+  // ── Health IT trade press ─────────────────────────────────
+  { id: 'fierce',   name: 'Fierce Healthcare',        url: 'https://www.fiercehealthcare.com/rss/xml' },
+  { id: 'beckers',  name: "Becker's Hospital Review", url: 'https://www.beckershospitalreview.com/rss.xml' },
+  { id: 'hitn',     name: 'Healthcare IT News',       url: 'https://www.healthcareitnews.com/rss.xml' },
+  { id: 'modern',   name: 'Modern Healthcare',        url: 'https://www.modernhealthcare.com/rss/news' },
+  { id: 'medcity',  name: 'MedCity News',             url: 'https://medcitynews.com/feed/' },
+  { id: 'mobi',     name: 'MobiHealthNews',           url: 'https://www.mobihealthnews.com/rss.xml' },
+  { id: 'hitc',     name: 'HIT Consultant',           url: 'https://hitconsultant.net/feed/' },
+  { id: 'hita',     name: 'Health IT Analytics',      url: 'https://healthitanalytics.com/feed/' },
+  { id: 'hcdive',   name: 'Healthcare Dive',          url: 'https://www.healthcaredive.com/feeds/news/' },
+  { id: 'hdm',      name: 'Health Data Management',   url: 'https://www.healthdatamanagement.com/rss/news' },
+  { id: 'hcig',     name: 'HC Innovation Group',      url: 'https://www.hcinnovationgroup.com/rss.xml' },
+  { id: 'hlm',      name: 'HealthLeaders',            url: 'https://www.healthleadersmedia.com/feed' },
+  { id: 'rcint',    name: 'RevCycle Intelligence',    url: 'https://revcycleintelligence.com/feed/' },
+  { id: 'ehrint',   name: 'EHR Intelligence',         url: 'https://ehrintelligence.com/feed/' },
+  { id: 'payint',   name: 'Payer Intelligence',       url: 'https://payerintelligence.com/feed/' },
+  { id: 'pateng',   name: 'Patient Engagement HIT',   url: 'https://patientengagementhit.com/feed/' },
+  // ── Pharma / biotech (adjacent M&A signals) ───────────────
+  { id: 'biopharma',name: 'BioPharma Dive',           url: 'https://www.biopharmadive.com/feeds/news/' },
+  { id: 'fbiote',   name: 'Fierce Biotech',           url: 'https://www.fiercebiotech.com/rss/xml' },
+  { id: 'fpharma',  name: 'Fierce Pharma',            url: 'https://www.fiercepharma.com/rss/xml' },
+  // ── Financial & M&A ──────────────────────────────────────
+  { id: 'stat',     name: 'STAT News',                url: 'https://www.statnews.com/feed/' },
+  { id: 'tc',       name: 'TechCrunch Health',        url: 'https://techcrunch.com/category/health/feed/' },
+  { id: 'hcfin',    name: 'Healthcare Finance News',  url: 'https://www.healthcarefinancenews.com/rss.xml' },
+  { id: 'bizwire',  name: 'Business Wire',            url: 'https://www.businesswire.com/rss/home/rss_healthcare.rss' },
+  { id: 'gnw',      name: 'GlobeNewsWire',            url: 'https://www.globenewswire.com/RssFeed/subjectcode/3-PHBM' },
+  { id: 'prn',      name: 'PR Newswire',              url: 'https://www.prnewswire.com/rss/news-releases-list.rss' },
+];
+
+/* ─────────────────────────────────────────────
+   M&A keyword filter
+───────────────────────────────────────────── */
+const KEYWORDS = [
+  // Acquisitions
+  'acquisition', 'acquires', 'acquired', 'acquiring', 'acqui-hire',
+  // Mergers
+  'merger', 'mergers', 'merges', 'merged', 'merging', 'merge',
+  // Divestitures
+  'divestiture', 'divestitures', 'divests', 'divested', 'divesting',
+  'spin-off', 'spinoff', 'spun off', 'carve-out', 'carveout',
+  // Funding rounds
+  'funding round', 'funding rounds', 'series a', 'series b', 'series c',
+  'series d', 'series e', 'seed round', 'seed funding', 'pre-seed',
+  'raises', 'raised', 'secures funding', 'closes funding',
+  'venture capital', 'venture funding', 'vc funding', 'vc-backed',
+  // Capital events
+  'buyout', 'leveraged buyout', 'lbo', 'management buyout', 'mbo',
+  'private equity', 'pe-backed', 'growth equity', 'growth investment',
+  'recapitalization', 'majority stake', 'minority stake',
+  'ipo', 'initial public offering', 'spac', 'goes public', 'direct listing',
+  'capital raise', 'capital raise', 'investment round',
+  // Deal language
+  'deal', 'transaction', 'strategic acquisition', 'buys', 'purchased',
+  'joint venture', 'partnership agreement', 'definitive agreement',
+];
+
+function isMandA(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return KEYWORDS.some(kw => text.includes(kw));
+}
+
+const HEALTH_TERMS = [
+  // Sector labels
+  'healthcare', 'health care', 'health system', 'health plan', 'health tech',
+  'health it', 'healthtech', 'digital health', 'life sciences',
+  // Facility & provider types
+  'hospital', 'clinic', 'physician', 'provider', 'payer', 'insurer',
+  'ambulatory', 'telehealth', 'telemedicine', 'virtual care',
+  // Clinical & administrative systems
+  'ehr', 'emr', 'electronic health record', 'revenue cycle', 'rcm',
+  'medical billing', 'prior authorization', 'care management',
+  'population health', 'clinical decision support', 'patient engagement',
+  // Coverage & benefits
+  'medicare', 'medicaid', 'health insurance', 'health benefit',
+  'pharmacy benefit', 'pbm', 'formulary', 'self-insured',
+  // Clinical domains (kept broad enough to catch adjacent deals)
+  'medical', 'clinical', 'pharma', 'pharmaceutical', 'biotech',
+  'diagnostic', 'genomic', 'therapeutic', 'drug', 'medication',
+  'nursing', 'behavioral health', 'mental health',
+];
+
+function isHealthcare(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return HEALTH_TERMS.some(t => text.includes(t));
+}
+
+/* ─────────────────────────────────────────────
+   State
+───────────────────────────────────────────── */
+let allArticles = [];
+let activeFilter = 'all';
+
+/* ─────────────────────────────────────────────
+   Fetch one RSS feed via rss2json proxy
+───────────────────────────────────────────── */
+async function fetchFeed(feed) {
+  try {
+    const res  = await fetch(PROXY + encodeURIComponent(feed.url));
+    const data = await res.json();
+    if (data.status !== 'ok') {
+      console.warn(`${feed.name}: ${data.message}`);
+      return [];
+    }
+    return (data.items || []).map(item => ({
+      title:       item.title?.trim(),
+      url:         item.link,
+      publishedAt: item.pubDate,
+      description: (item.description || '').replace(/<[^>]+>/g, '').trim(),
+      _sourceId:   feed.id,
+      _sourceName: feed.name,
+    }));
+  } catch (e) {
+    console.warn(`Failed to load ${feed.name}:`, e.message);
+    return [];
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Main loader
+───────────────────────────────────────────── */
+async function loadNews() {
+  const feedEl     = document.getElementById('feed');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const statsBar   = document.getElementById('statsBar');
+  const filterBar  = document.getElementById('filterBar');
+
+  refreshBtn.disabled     = true;
+  statsBar.style.display  = 'none';
+  filterBar.style.display = 'none';
+  document.getElementById('ts').textContent = '—';
+
+  feedEl.innerHTML = `
+    <div class="loader">
+      <div class="spinner"></div>
+      <div class="loader-txt">Loading RSS feeds…</div>
+      <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:5%"></div></div>
+    </div>`;
+
+  // Fetch all 5 feeds in parallel
+  const results = await Promise.all(FEEDS.map(fetchFeed));
+
+  document.getElementById('progBar').style.width = '100%';
+
+  const seen    = new Set();
+  let collected = [];
+
+  results.forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title)  return;
+      if (seen.has(a.url))     return;
+      if (!isMandA(a))         return;
+      if (!isHealthcare(a))    return;
+      seen.add(a.url);
+      collected.push(a);
+    });
+  });
+
+  // Sort newest-first
+  collected.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  allArticles = collected;
+
+  const now = new Date();
+  document.getElementById('ts').textContent =
+    'Last refreshed: ' +
+    now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) +
+    ' at ' +
+    now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+  refreshBtn.disabled = false;
+
+  if (collected.length === 0) {
+    feedEl.innerHTML = `
+      <div class="error-box">
+        <h3>⚠️ No M&amp;A articles found</h3>
+        <p>
+          No articles matching deal keywords were returned by the RSS feeds.<br><br>
+          If you see a network error, try opening the file via a local server:<br>
+          <code>python3 -m http.server 8080</code><br>
+          then visit <code>http://localhost:8080/hit-daily.html</code>
+        </p>
+      </div>`;
+    return;
+  }
+
+  const activeSources = new Set(collected.map(a => a._sourceName));
+  document.getElementById('cntArticles').textContent = collected.length;
+  document.getElementById('cntSources').textContent  = activeSources.size;
+  document.getElementById('cntCats').textContent     = FEEDS.length;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  renderFeed();
+}
+
+/* ─────────────────────────────────────────────
+   Render
+───────────────────────────────────────────── */
+function renderFeed() {
+  const feedEl   = document.getElementById('feed');
+  const filtered = activeFilter === 'all'
+    ? allArticles
+    : allArticles.filter(a => a._sourceId === activeFilter);
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No matching articles from this source</h3>
+        <p>Try a different filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(card).join('')}</div>`;
+}
+
+function card(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+
+  return `
+    <article class="card">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+/* ─────────────────────────────────────────────
+   Helpers
+───────────────────────────────────────────── */
+function snippet(text) {
+  if (!text) return '';
+  const raw = text.replace(/<[^>]+>/g, '').trim();
+  if (raw.length <= 320) return raw;
+  const cut = raw.slice(0, 320);
+  const dot = cut.lastIndexOf('.');
+  return dot > 200 ? cut.slice(0, dot + 1) : cut + '…';
+}
+
+function relDate(iso) {
+  if (!iso) return '';
+  const d    = new Date(iso);
+  const diff = Date.now() - d.getTime();
+  const h    = Math.floor(diff / 3_600_000);
+  const days = Math.floor(diff / 86_400_000);
+  if (h < 1)    return 'Just now';
+  if (h < 24)   return `${h}h ago`;
+  if (days < 2) return 'Yesterday';
+  if (days < 7) return `${days}d ago`;
+  return d.toLocaleDateString('en-US', {
+    month: 'short', day: 'numeric',
+    ...(d.getFullYear() !== new Date().getFullYear() && { year: 'numeric' }),
+  });
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* ─────────────────────────────────────────────
+   Filter chips  (filter by source, not category)
+───────────────────────────────────────────── */
+document.getElementById('filterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeFilter = btn.dataset.src;
+  renderFeed();
+});
+
+/* ─────────────────────────────────────────────
+   Boot
+───────────────────────────────────────────── */
+loadNews();
+</script>
+</body>
+</html>
