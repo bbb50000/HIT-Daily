@@ -63,6 +63,37 @@
     /* ── Layout ── */
     .page { max-width: 1200px; margin: 0 auto; padding: 28px 24px 60px; }
 
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #1a3050;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #4a6080;
+      padding: 12px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: -1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color .2s, border-color .2s;
+      letter-spacing: .1px;
+    }
+    .tab-btn:hover { color: #7a9ab8; }
+    .tab-btn.active { color: #2d9cdb; border-bottom-color: #2d9cdb; }
+    .tab-btn.active.clin { color: #10b981; border-bottom-color: #10b981; }
+    .tab-btn.active.rwe  { color: #a78bfa; border-bottom-color: #a78bfa; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     /* ── Stats bar ── */
     .stats { display: flex; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
     .stat {
@@ -73,6 +104,8 @@
       display: flex; align-items: center; gap: 12px;
     }
     .stat-val { font-size: 26px; font-weight: 800; color: #2d9cdb; line-height: 1; }
+    .stat-val.green  { color: #10b981; }
+    .stat-val.purple { color: #a78bfa; }
     .stat-lbl { font-size: 11px; color: #3a5070; text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; }
 
     /* ── Filter chips ── */
@@ -90,6 +123,31 @@
       border-color: #2d9cdb;
       color: #2d9cdb;
     }
+    .chip.green-chip:hover, .chip.green-chip.on {
+      background: rgba(16,185,129,.12);
+      border-color: #10b981;
+      color: #10b981;
+    }
+    .chip.purple-chip:hover, .chip.purple-chip.on {
+      background: rgba(167,139,250,.12);
+      border-color: #a78bfa;
+      color: #a78bfa;
+    }
+
+    /* ── Date window badge ── */
+    .date-window {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,.08);
+      border: 1px solid rgba(16,185,129,.2);
+      color: #059669;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
 
     /* ── Loading ── */
     .loader {
@@ -102,10 +160,14 @@
       border-radius: 50%;
       animation: spin .75s linear infinite;
     }
+    .spinner.green  { border-top-color: #10b981; }
+    .spinner.purple { border-top-color: #a78bfa; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loader-txt { margin-top: 16px; color: #3a5070; font-size: 14px; }
     .prog-wrap { width: 220px; height: 3px; background: #1a3050; border-radius: 2px; margin: 14px auto 0; overflow: hidden; }
     .prog-bar  { height: 100%; background: linear-gradient(90deg,#1560a8,#2d9cdb); border-radius: 2px; transition: width .35s ease; }
+    .prog-bar.green  { background: linear-gradient(90deg,#059669,#10b981); }
+    .prog-bar.purple { background: linear-gradient(90deg,#7c3aed,#a78bfa); }
 
     /* ── News cards ── */
     .feed { display: flex; flex-direction: column; gap: 14px; }
@@ -125,10 +187,24 @@
       background: linear-gradient(180deg, #1560a8, #2d9cdb);
       border-radius: 3px 0 0 3px;
     }
+    .card.clin::before {
+      background: linear-gradient(180deg, #059669, #10b981);
+    }
+    .card.rwe::before {
+      background: linear-gradient(180deg, #7c3aed, #a78bfa);
+    }
     .card:hover {
       border-color: #2d9cdb;
       transform: translateX(3px);
       box-shadow: 0 4px 24px rgba(45,156,219,.1);
+    }
+    .card.clin:hover {
+      border-color: #10b981;
+      box-shadow: 0 4px 24px rgba(16,185,129,.1);
+    }
+    .card.rwe:hover {
+      border-color: #a78bfa;
+      box-shadow: 0 4px 24px rgba(167,139,250,.1);
     }
 
     .card-meta {
@@ -142,6 +218,22 @@
       padding: 3px 10px; border-radius: 20px;
       font-size: 10px; font-weight: 700;
       text-transform: uppercase; letter-spacing: .5px;
+    }
+    .badge-vendor {
+      background: rgba(16,185,129,.12);
+      color: #10b981;
+      border: 1px solid rgba(16,185,129,.28);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .badge-rwe-vendor {
+      background: rgba(167,139,250,.12);
+      color: #a78bfa;
+      border: 1px solid rgba(167,139,250,.28);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .3px;
     }
     .badge-date {
       color: #3a5070; font-size: 12px;
@@ -162,6 +254,8 @@
     }
     .card-title a { color: inherit; text-decoration: none; transition: color .2s; }
     .card-title a:hover { color: #2d9cdb; }
+    .card.clin .card-title a:hover { color: #10b981; }
+    .card.rwe  .card-title a:hover { color: #a78bfa; }
 
     .card-body {
       font-size: 14px; color: #7a9ab8; line-height: 1.65; margin-bottom: 14px;
@@ -174,6 +268,8 @@
       transition: gap .2s;
     }
     .read-more:hover { gap: 9px; }
+    .card.clin .read-more { color: #10b981; }
+    .card.rwe  .read-more { color: #a78bfa; }
 
     /* ── Error / empty ── */
     .error-box {
@@ -201,6 +297,7 @@
       .card { padding: 16px 18px 14px 22px; }
       .card-title { font-size: 14px; }
       .card-body  { font-size: 13px; }
+      .tab-btn { padding: 10px 16px; font-size: 13px; }
     }
   </style>
 </head>
@@ -212,12 +309,12 @@
       <div class="logo-icon">📡</div>
       <div class="logo-text">
         <h1>HIT Daily</h1>
-        <p>M&amp;A &amp; Deal Intelligence Feed</p>
+        <p>Healthcare IT Intelligence Feed</p>
       </div>
     </div>
     <div class="hdr-right">
       <span class="ts" id="ts">—</span>
-      <button class="btn-refresh" id="refreshBtn" onclick="loadNews()">
+      <button class="btn-refresh" id="refreshBtn" onclick="loadAll()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
         Refresh
       </button>
@@ -226,70 +323,197 @@
 </header>
 
 <div class="page">
-  <div class="stats" id="statsBar" style="display:none">
-    <div class="stat">
-      <div>
-        <div class="stat-val" id="cntArticles">0</div>
-        <div class="stat-lbl">Articles</div>
-      </div>
-    </div>
-    <div class="stat">
-      <div>
-        <div class="stat-val" id="cntSources">0</div>
-        <div class="stat-lbl">Sources</div>
-      </div>
-    </div>
-    <div class="stat">
-      <div>
-        <div class="stat-val" id="cntCats">0</div>
-        <div class="stat-lbl">Feeds</div>
-      </div>
-    </div>
+
+  <!-- ── Tab navigation ── -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="manda">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      M&amp;A Deals
+    </button>
+    <button class="tab-btn clin" data-tab="clinical">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      Clinical Decisions
+    </button>
+    <button class="tab-btn rwe" data-tab="rwe">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Real World Evidence
+    </button>
   </div>
 
-  <div class="filters" id="filterBar" style="display:none">
-    <button class="chip on" data-src="all">All Sources</button>
-    <button class="chip" data-src="fierce">Fierce Healthcare</button>
-    <button class="chip" data-src="beckers">Becker's</button>
-    <button class="chip" data-src="hitn">HIT News</button>
-    <button class="chip" data-src="modern">Modern Healthcare</button>
-    <button class="chip" data-src="medcity">MedCity News</button>
-    <button class="chip" data-src="mobi">MobiHealthNews</button>
-    <button class="chip" data-src="hitc">HIT Consultant</button>
-    <button class="chip" data-src="hita">HIT Analytics</button>
-    <button class="chip" data-src="hcdive">Healthcare Dive</button>
-    <button class="chip" data-src="hdm">Health Data Mgmt</button>
-    <button class="chip" data-src="hcig">HC Innovation</button>
-    <button class="chip" data-src="hlm">HealthLeaders</button>
-    <button class="chip" data-src="rcint">RevCycle Intel</button>
-    <button class="chip" data-src="ehrint">EHR Intelligence</button>
-    <button class="chip" data-src="payint">Payer Intelligence</button>
-    <button class="chip" data-src="pateng">Patient Engagement</button>
-    <button class="chip" data-src="biopharma">BioPharma Dive</button>
-    <button class="chip" data-src="fbiote">Fierce Biotech</button>
-    <button class="chip" data-src="fpharma">Fierce Pharma</button>
-    <button class="chip" data-src="stat">STAT News</button>
-    <button class="chip" data-src="tc">TechCrunch</button>
-    <button class="chip" data-src="hcfin">HC Finance News</button>
-    <button class="chip" data-src="bizwire">Business Wire</button>
-    <button class="chip" data-src="gnw">GlobeNewsWire</button>
-    <button class="chip" data-src="prn">PR Newswire</button>
-  </div>
-
-  <div id="feed">
-    <div class="loader">
-      <div class="spinner"></div>
-      <div class="loader-txt" id="loaderTxt">Fetching health IT M&amp;A deals…</div>
-      <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+  <!-- ══════════════════════════════════════════
+       M&A DEALS PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-manda" class="tab-panel active">
+    <div class="stats" id="statsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val" id="cntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val" id="cntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val" id="cntCats">0</div>
+          <div class="stat-lbl">Feeds</div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+
+    <div class="filters" id="filterBar" style="display:none">
+      <button class="chip on" data-src="all">All Sources</button>
+      <button class="chip" data-src="fierce">Fierce Healthcare</button>
+      <button class="chip" data-src="beckers">Becker's</button>
+      <button class="chip" data-src="hitn">HIT News</button>
+      <button class="chip" data-src="modern">Modern Healthcare</button>
+      <button class="chip" data-src="medcity">MedCity News</button>
+      <button class="chip" data-src="mobi">MobiHealthNews</button>
+      <button class="chip" data-src="hitc">HIT Consultant</button>
+      <button class="chip" data-src="hita">HIT Analytics</button>
+      <button class="chip" data-src="hcdive">Healthcare Dive</button>
+      <button class="chip" data-src="hdm">Health Data Mgmt</button>
+      <button class="chip" data-src="hcig">HC Innovation</button>
+      <button class="chip" data-src="hlm">HealthLeaders</button>
+      <button class="chip" data-src="rcint">RevCycle Intel</button>
+      <button class="chip" data-src="ehrint">EHR Intelligence</button>
+      <button class="chip" data-src="payint">Payer Intelligence</button>
+      <button class="chip" data-src="pateng">Patient Engagement</button>
+      <button class="chip" data-src="biopharma">BioPharma Dive</button>
+      <button class="chip" data-src="fbiote">Fierce Biotech</button>
+      <button class="chip" data-src="fpharma">Fierce Pharma</button>
+      <button class="chip" data-src="stat">STAT News</button>
+      <button class="chip" data-src="tc">TechCrunch</button>
+      <button class="chip" data-src="hcfin">HC Finance News</button>
+      <button class="chip" data-src="bizwire">Business Wire</button>
+      <button class="chip" data-src="gnw">GlobeNewsWire</button>
+      <button class="chip" data-src="prn">PR Newswire</button>
+    </div>
+
+    <div id="feed">
+      <div class="loader">
+        <div class="spinner"></div>
+        <div class="loader-txt" id="loaderTxt">Fetching health IT M&amp;A deals…</div>
+        <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-manda -->
+
+  <!-- ══════════════════════════════════════════
+       CLINICAL DECISIONS PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-clinical" class="tab-panel">
+
+    <div class="stats" id="clinStatsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val green" id="clinCntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val green" id="clinCntVendors">0</div>
+          <div class="stat-lbl">Vendors Covered</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val green" id="clinCntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val green">30</div>
+          <div class="stat-lbl">Day Window</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters" id="clinFilterBar" style="display:none">
+      <button class="chip green-chip on" data-vendor="all">All Vendors</button>
+      <button class="chip green-chip" data-vendor="wk">Wolters Kluwer</button>
+      <button class="chip green-chip" data-vendor="els">Elsevier</button>
+      <button class="chip green-chip" data-vendor="ebsco">EBSCO</button>
+      <button class="chip green-chip" data-vendor="micro">Micromedex</button>
+      <button class="chip green-chip" data-vendor="dox">Doximity</button>
+      <button class="chip green-chip" data-vendor="oe">OpenEvidence</button>
+      <button class="chip green-chip" data-vendor="epoc">Epocrates</button>
+    </div>
+
+    <div id="clinFeed">
+      <div class="loader">
+        <div class="spinner green"></div>
+        <div class="loader-txt">Loading clinical decision news…</div>
+        <div class="prog-wrap"><div class="prog-bar green" id="clinProgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-clinical -->
+
+  <!-- ══════════════════════════════════════════
+       REAL WORLD EVIDENCE PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-rwe" class="tab-panel">
+
+    <div class="stats" id="rweStatsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val purple" id="rweCntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val purple" id="rweCntVendors">0</div>
+          <div class="stat-lbl">Vendors Covered</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val purple" id="rweCntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val purple">30</div>
+          <div class="stat-lbl">Day Window</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters" id="rweFilterBar" style="display:none">
+      <button class="chip purple-chip on" data-rwe="all">All Vendors</button>
+      <button class="chip purple-chip" data-rwe="komodo">Komodo Health</button>
+      <button class="chip purple-chip" data-rwe="optum">Optum</button>
+      <button class="chip purple-chip" data-rwe="marketscan">MarketScan</button>
+      <button class="chip purple-chip" data-rwe="inovalon">Inovalon</button>
+      <button class="chip purple-chip" data-rwe="iqvia">IQVIA</button>
+      <button class="chip purple-chip" data-rwe="norstella">Norstella</button>
+      <button class="chip purple-chip" data-rwe="healthverity">HealthVerity</button>
+      <button class="chip purple-chip" data-rwe="purplelab">PurpleLab</button>
+    </div>
+
+    <div id="rweFeed">
+      <div class="loader">
+        <div class="spinner purple"></div>
+        <div class="loader-txt">Fetching real world evidence news…</div>
+        <div class="prog-wrap"><div class="prog-bar purple" id="rweProgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-rwe -->
+
+</div><!-- /page -->
 
 <script>
 /* ─────────────────────────────────────────────
    RSS feeds + proxy
 ───────────────────────────────────────────── */
-// rss2json.com converts RSS to CORS-safe JSON.
 const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
 const FEEDS = [
@@ -310,11 +534,11 @@ const FEEDS = [
   { id: 'ehrint',   name: 'EHR Intelligence',         url: 'https://ehrintelligence.com/feed/' },
   { id: 'payint',   name: 'Payer Intelligence',       url: 'https://payerintelligence.com/feed/' },
   { id: 'pateng',   name: 'Patient Engagement HIT',   url: 'https://patientengagementhit.com/feed/' },
-  // ── Pharma / biotech (adjacent M&A signals) ───────────────
+  // ── Pharma / biotech ─────────────────────────────────────
   { id: 'biopharma',name: 'BioPharma Dive',           url: 'https://www.biopharmadive.com/feeds/news/' },
   { id: 'fbiote',   name: 'Fierce Biotech',           url: 'https://www.fiercebiotech.com/rss/xml' },
   { id: 'fpharma',  name: 'Fierce Pharma',            url: 'https://www.fiercepharma.com/rss/xml' },
-  // ── Financial & M&A ──────────────────────────────────────
+  // ── Financial & broader ──────────────────────────────────
   { id: 'stat',     name: 'STAT News',                url: 'https://www.statnews.com/feed/' },
   { id: 'tc',       name: 'TechCrunch Health',        url: 'https://techcrunch.com/category/health/feed/' },
   { id: 'hcfin',    name: 'Healthcare Finance News',  url: 'https://www.healthcarefinancenews.com/rss.xml' },
@@ -324,28 +548,102 @@ const FEEDS = [
 ];
 
 /* ─────────────────────────────────────────────
+   Clinical-only feeds (vendor searches + clinical publications)
+   These are fetched exclusively for the Clinical Decisions tab.
+───────────────────────────────────────────── */
+const CLINICAL_FEEDS = [
+  // ── Google News vendor-targeted RSS searches ──────────────
+  { id: 'gn-wk',     name: 'Google News – Wolters Kluwer', url: 'https://news.google.com/rss/search?q=%22Wolters+Kluwer%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-els',    name: 'Google News – Elsevier',       url: 'https://news.google.com/rss/search?q=%22Elsevier%22+health+OR+medical+OR+clinical&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-ebsco',  name: 'Google News – EBSCO',          url: 'https://news.google.com/rss/search?q=%22EBSCO%22+health+OR+medical+OR+library&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-micro',  name: 'Google News – Micromedex',     url: 'https://news.google.com/rss/search?q=%22Micromedex%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-dox',    name: 'Google News – Doximity',       url: 'https://news.google.com/rss/search?q=%22Doximity%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-oe',     name: 'Google News – OpenEvidence',   url: 'https://news.google.com/rss/search?q=%22OpenEvidence%22+AI+OR+medical+OR+clinical&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-epoc',   name: 'Google News – Epocrates',      url: 'https://news.google.com/rss/search?q=%22Epocrates%22&hl=en-US&gl=US&ceid=US:en' },
+  // ── Pharmacy & drug information publications ──────────────
+  { id: 'pharmtimes', name: 'Pharmacy Times',              url: 'https://www.pharmacytimes.com/rss/all' },
+  { id: 'drugtop',    name: 'Drug Topics',                 url: 'https://www.drugtopics.com/rss' },
+  { id: 'ppn',        name: 'Pharmacy Practice News',      url: 'https://www.pharmacypracticenews.com/rss/all-news' },
+  { id: 'mhe',        name: 'Managed Healthcare Executive',url: 'https://www.managedhealthcareexecutive.com/rss/all' },
+  { id: 'formulary',  name: 'Formulary Watch',             url: 'https://formularywatch.modernmedicine.com/rss.xml' },
+  { id: 'ajhp',       name: 'Am. J. Health-System Pharmacy',url: 'https://academic.oup.com/ajhp/rss/1' },
+  // ── Physician / clinical workflow publications ────────────
+  { id: 'medpage',    name: 'MedPage Today',               url: 'https://www.medpagetoday.com/rss/headlines.xml' },
+  { id: 'medscape',   name: 'Medscape Medical News',       url: 'https://www.medscape.com/cx/rss/professional.xml' },
+  { id: 'medeco',     name: 'Medical Economics',           url: 'https://www.medicaleconomics.com/rss' },
+  { id: 'physweekly', name: 'Physicians Weekly',           url: 'https://www.physiciansweekly.com/feed/' },
+  { id: 'kevinmd',    name: 'KevinMD',                     url: 'https://www.kevinmd.com/feed' },
+  { id: 'hosp',       name: 'The Hospitalist',             url: 'https://www.the-hospitalist.org/rss/all-articles' },
+  { id: 'physprac',   name: "Physicians Practice",         url: 'https://www.physicianspractice.com/rss/all' },
+  { id: 'amanews',    name: 'AMA Wire',                    url: 'https://www.ama-assn.org/rss.xml' },
+  // ── Clinical informatics & health IT (additional) ─────────
+  { id: 'hittoday',   name: 'Healthcare IT Today',         url: 'https://www.healthcareittoday.com/feed/' },
+  { id: 'clininn',    name: 'Clinical Innovation + Tech',  url: 'https://www.clinical-innovation.com/rss.xml' },
+  { id: 'himss',      name: 'HIMSS News',                  url: 'https://www.himss.org/news/rss.xml' },
+  { id: 'jhimss',     name: 'J. of AHIMA',                 url: 'https://journal.ahima.org/feed/' },
+  // ── Information/library industry (Elsevier, EBSCO, WK) ───
+  { id: 'infoday',    name: 'Information Today',           url: 'https://www.infotoday.com/rss.xml' },
+  { id: 'libjrnl',    name: 'Library Journal',             url: 'https://www.libraryjournal.com/rss.xml' },
+  { id: 'scholkit',   name: 'The Scholarly Kitchen',       url: 'https://scholarlykitchen.sspnet.org/feed/' },
+  // ── Broader news wires (health + tech) ───────────────────
+  { id: 'reuters',    name: 'Reuters Health',              url: 'https://feeds.reuters.com/reuters/healthNews' },
+  { id: 'axios',      name: 'Axios',                       url: 'https://api.axios.com/feed/' },
+  { id: 'forbes',     name: 'Forbes Healthcare',           url: 'https://www.forbes.com/healthcare/feed/' },
+  { id: 'wsj-h',      name: 'WSJ Health',                  url: 'https://feeds.a.dj.com/rss/RSSWSJD.xml' },
+];
+
+/* ─────────────────────────────────────────────
+   Real World Evidence feeds (vendor searches + RWE publications)
+   Fetched exclusively for the Real World Evidence tab.
+───────────────────────────────────────────── */
+const RWE_FEEDS = [
+  // ── Google News vendor-targeted RSS searches ──────────────
+  { id: 'gn-komodo',  name: 'Google News – Komodo Health',   url: 'https://news.google.com/rss/search?q=%22Komodo+Health%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-optum',   name: 'Google News – Optum',           url: 'https://news.google.com/rss/search?q=%22Optum%22+data+OR+analytics+OR+%22real+world%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-mscan',   name: 'Google News – MarketScan',      url: 'https://news.google.com/rss/search?q=%22MarketScan%22+OR+%22Merative%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-inov',    name: 'Google News – Inovalon',        url: 'https://news.google.com/rss/search?q=%22Inovalon%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-iqvia',   name: 'Google News – IQVIA',           url: 'https://news.google.com/rss/search?q=%22IQVIA%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-norst',   name: 'Google News – Norstella',       url: 'https://news.google.com/rss/search?q=%22Norstella%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-hv',      name: 'Google News – HealthVerity',    url: 'https://news.google.com/rss/search?q=%22HealthVerity%22+OR+%22Healthverity%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-pl',      name: 'Google News – PurpleLab',       url: 'https://news.google.com/rss/search?q=%22PurpleLab%22&hl=en-US&gl=US&ceid=US:en' },
+  // ── General RWE search ────────────────────────────────────
+  { id: 'gn-rwe',     name: 'Google News – Real World Evidence', url: 'https://news.google.com/rss/search?q=%22real+world+evidence%22+OR+%22real-world+evidence%22+health&hl=en-US&gl=US&ceid=US:en' },
+  // ── Pharma & life sciences publications ───────────────────
+  { id: 'endpoints',  name: 'Endpoints News',                url: 'https://endpts.com/feed/' },
+  { id: 'pharmexec',  name: 'Pharmaceutical Executive',      url: 'https://www.pharmexec.com/rss/all' },
+  { id: 'pharmavoice',name: 'PharmaVoice',                   url: 'https://www.pharmavoice.com/feed/' },
+  { id: 'dd-d',       name: 'Drug Discovery & Development',  url: 'https://www.dddmag.com/rss.xml' },
+  { id: 'clinleader', name: 'Clinical Leader',               url: 'https://www.clinicalleader.com/rss/all' },
+  { id: 'applct',     name: 'Applied Clinical Trials',       url: 'https://www.appliedclinicaltrialsonline.com/rss/all' },
+  { id: 'pharmtech',  name: 'Pharmaceutical Technology',     url: 'https://www.pharmtech.com/rss/all' },
+  { id: 'fda-news',   name: 'FDA News',                      url: 'https://www.fdanews.com/rss/headlines' },
+  // ── Health data & analytics publications ─────────────────
+  { id: 'hitana',     name: 'Health IT Analytics',           url: 'https://healthitanalytics.com/feed/' },
+  { id: 'jmir',       name: 'JMIR Medical Informatics',      url: 'https://medinform.jmir.org/feed' },
+  // ── Broader health + business wires ──────────────────────
+  { id: 'rwe-reuters',name: 'Reuters Health',                url: 'https://feeds.reuters.com/reuters/healthNews' },
+  { id: 'rwe-stat',   name: 'STAT News',                     url: 'https://www.statnews.com/feed/' },
+  { id: 'rwe-biopharma', name: 'BioPharma Dive',            url: 'https://www.biopharmadive.com/feeds/news/' },
+  { id: 'rwe-medcity',name: 'MedCity News',                  url: 'https://medcitynews.com/feed/' },
+];
+
+/* ─────────────────────────────────────────────
    M&A keyword filter
 ───────────────────────────────────────────── */
 const KEYWORDS = [
-  // Acquisitions
   'acquisition', 'acquires', 'acquired', 'acquiring', 'acqui-hire',
-  // Mergers
   'merger', 'mergers', 'merges', 'merged', 'merging', 'merge',
-  // Divestitures
   'divestiture', 'divestitures', 'divests', 'divested', 'divesting',
   'spin-off', 'spinoff', 'spun off', 'carve-out', 'carveout',
-  // Funding rounds
   'funding round', 'funding rounds', 'series a', 'series b', 'series c',
   'series d', 'series e', 'seed round', 'seed funding', 'pre-seed',
   'raises', 'raised', 'secures funding', 'closes funding',
   'venture capital', 'venture funding', 'vc funding', 'vc-backed',
-  // Capital events
   'buyout', 'leveraged buyout', 'lbo', 'management buyout', 'mbo',
   'private equity', 'pe-backed', 'growth equity', 'growth investment',
   'recapitalization', 'majority stake', 'minority stake',
   'ipo', 'initial public offering', 'spac', 'goes public', 'direct listing',
-  'capital raise', 'capital raise', 'investment round',
-  // Deal language
+  'capital raise', 'investment round',
   'deal', 'transaction', 'strategic acquisition', 'buys', 'purchased',
   'joint venture', 'partnership agreement', 'definitive agreement',
 ];
@@ -357,20 +655,15 @@ function isMandA(article) {
 }
 
 const HEALTH_TERMS = [
-  // Sector labels
   'healthcare', 'health care', 'health system', 'health plan', 'health tech',
   'health it', 'healthtech', 'digital health', 'life sciences',
-  // Facility & provider types
   'hospital', 'clinic', 'physician', 'provider', 'payer', 'insurer',
   'ambulatory', 'telehealth', 'telemedicine', 'virtual care',
-  // Clinical & administrative systems
   'ehr', 'emr', 'electronic health record', 'revenue cycle', 'rcm',
   'medical billing', 'prior authorization', 'care management',
   'population health', 'clinical decision support', 'patient engagement',
-  // Coverage & benefits
   'medicare', 'medicaid', 'health insurance', 'health benefit',
   'pharmacy benefit', 'pbm', 'formulary', 'self-insured',
-  // Clinical domains (kept broad enough to catch adjacent deals)
   'medical', 'clinical', 'pharma', 'pharmaceutical', 'biotech',
   'diagnostic', 'genomic', 'therapeutic', 'drug', 'medication',
   'nursing', 'behavioral health', 'mental health',
@@ -383,10 +676,70 @@ function isHealthcare(article) {
 }
 
 /* ─────────────────────────────────────────────
+   Clinical Decisions vendor keywords
+───────────────────────────────────────────── */
+const CLINICAL_VENDORS = [
+  { id: 'wk',    label: 'Wolters Kluwer', term: 'wolters kluwer' },
+  { id: 'els',   label: 'Elsevier',       term: 'elsevier' },
+  { id: 'ebsco', label: 'EBSCO',          term: 'ebsco' },
+  { id: 'micro', label: 'Micromedex',     term: 'micromedex' },
+  { id: 'dox',   label: 'Doximity',       term: 'doximity' },
+  { id: 'oe',    label: 'OpenEvidence',   term: 'openevidence' },
+  { id: 'epoc',  label: 'Epocrates',      term: 'epocrates' },
+];
+
+function matchedVendors(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return CLINICAL_VENDORS.filter(v => text.includes(v.term));
+}
+
+function isClinicalDecisions(article) {
+  return matchedVendors(article).length > 0;
+}
+
+/* ─────────────────────────────────────────────
+   Real World Evidence vendor keywords
+───────────────────────────────────────────── */
+const RWE_VENDORS = [
+  { id: 'komodo',      label: 'Komodo Health',  term: 'komodo health' },
+  { id: 'optum',       label: 'Optum',          term: 'optum' },
+  { id: 'marketscan',  label: 'MarketScan',     term: 'marketscan' },
+  { id: 'inovalon',    label: 'Inovalon',       term: 'inovalon' },
+  { id: 'iqvia',       label: 'IQVIA',          term: 'iqvia' },
+  { id: 'norstella',   label: 'Norstella',      term: 'norstella' },
+  { id: 'healthverity',label: 'HealthVerity',   term: 'healthverity' },
+  { id: 'purplelab',   label: 'PurpleLab',      term: 'purplelab' },
+];
+
+function matchedRweVendors(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return RWE_VENDORS.filter(v => text.includes(v.term));
+}
+
+function isRweVendor(article) {
+  return matchedRweVendors(article).length > 0;
+}
+
+function isWithin30Days(article) {
+  if (!article.publishedAt) return false;
+  const pub = new Date(article.publishedAt);
+  const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  return pub >= cutoff;
+}
+
+/* ─────────────────────────────────────────────
    State
 ───────────────────────────────────────────── */
-let allArticles = [];
-let activeFilter = 'all';
+let rawArticles          = [];
+let allArticles          = [];   // M&A filtered
+let clinicalArticles     = [];   // Clinical Decisions filtered
+let rweArticles          = [];   // Real World Evidence filtered
+let activeFilter         = 'all';
+let activeClinicalFilter = 'all';
+let activeRweFilter      = 'all';
+let activeTab            = 'manda';
 
 /* ─────────────────────────────────────────────
    Fetch one RSS feed via rss2json proxy
@@ -414,49 +767,77 @@ async function fetchFeed(feed) {
 }
 
 /* ─────────────────────────────────────────────
-   Main loader
+   Main loader — fetches all feeds, populates all tabs
 ───────────────────────────────────────────── */
-async function loadNews() {
-  const feedEl     = document.getElementById('feed');
+async function loadAll() {
   const refreshBtn = document.getElementById('refreshBtn');
-  const statsBar   = document.getElementById('statsBar');
-  const filterBar  = document.getElementById('filterBar');
-
-  refreshBtn.disabled     = true;
-  statsBar.style.display  = 'none';
-  filterBar.style.display = 'none';
+  refreshBtn.disabled = true;
   document.getElementById('ts').textContent = '—';
 
-  feedEl.innerHTML = `
-    <div class="loader">
-      <div class="spinner"></div>
-      <div class="loader-txt">Loading RSS feeds…</div>
-      <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:5%"></div></div>
-    </div>`;
+  // Reset all panels to loading state
+  showMandALoader();
+  showClinicalLoader();
+  showRweLoader();
 
-  // Fetch all 5 feeds in parallel
-  const results = await Promise.all(FEEDS.map(fetchFeed));
+  // Fetch all three feed sets in parallel
+  const [generalResults, clinOnlyResults, rweOnlyResults] = await Promise.all([
+    Promise.all(FEEDS.map(fetchFeed)),
+    Promise.all(CLINICAL_FEEDS.map(fetchFeed)),
+    Promise.all(RWE_FEEDS.map(fetchFeed)),
+  ]);
 
-  document.getElementById('progBar').style.width = '100%';
-
-  const seen    = new Set();
-  let collected = [];
-
-  results.forEach(items => {
+  // --- M&A tab: de-dup from general feeds only ---
+  const seenMA = new Set();
+  rawArticles = [];
+  generalResults.forEach(items => {
     items.forEach(a => {
-      if (!a.url || !a.title)  return;
-      if (seen.has(a.url))     return;
-      if (!isMandA(a))         return;
-      if (!isHealthcare(a))    return;
-      seen.add(a.url);
-      collected.push(a);
+      if (!a.url || !a.title) return;
+      if (seenMA.has(a.url)) return;
+      seenMA.add(a.url);
+      rawArticles.push(a);
     });
   });
 
-  // Sort newest-first
-  collected.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-  allArticles = collected;
+  // --- Clinical tab: de-dup from general + clinical-specific feeds ---
+  const seenClin = new Set();
+  const clinRaw = [];
+  [...generalResults, ...clinOnlyResults].forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title) return;
+      if (seenClin.has(a.url)) return;
+      seenClin.add(a.url);
+      clinRaw.push(a);
+    });
+  });
 
+  // --- RWE tab: de-dup from general + RWE-specific feeds ---
+  const seenRwe = new Set();
+  const rweRaw = [];
+  [...generalResults, ...rweOnlyResults].forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title) return;
+      if (seenRwe.has(a.url)) return;
+      seenRwe.add(a.url);
+      rweRaw.push(a);
+    });
+  });
+
+  // Process M&A tab
+  allArticles = rawArticles
+    .filter(a => isMandA(a) && isHealthcare(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // Process Clinical Decisions tab (last 30 days + vendor keywords)
+  clinicalArticles = clinRaw
+    .filter(a => isWithin30Days(a) && isClinicalDecisions(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // Process Real World Evidence tab (last 30 days + RWE vendor keywords)
+  rweArticles = rweRaw
+    .filter(a => isWithin30Days(a) && isRweVendor(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // Timestamp
   const now = new Date();
   document.getElementById('ts').textContent =
     'Last refreshed: ' +
@@ -466,10 +847,67 @@ async function loadNews() {
 
   refreshBtn.disabled = false;
 
-  if (collected.length === 0) {
+  // Update progress bars and render all tabs
+  const pb = document.getElementById('progBar');
+  if (pb) pb.style.width = '100%';
+  renderMandA();
+
+  const cpb = document.getElementById('clinProgBar');
+  if (cpb) cpb.style.width = '100%';
+  renderClinical();
+
+  const rpb = document.getElementById('rweProgBar');
+  if (rpb) rpb.style.width = '100%';
+  renderRwe();
+}
+
+function showMandALoader() {
+  const statsBar  = document.getElementById('statsBar');
+  const filterBar = document.getElementById('filterBar');
+  statsBar.style.display  = 'none';
+  filterBar.style.display = 'none';
+  document.getElementById('feed').innerHTML = `
+    <div class="loader">
+      <div class="spinner"></div>
+      <div class="loader-txt">Loading RSS feeds…</div>
+      <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+function showClinicalLoader() {
+  document.getElementById('clinStatsBar').style.display  = 'none';
+  document.getElementById('clinFilterBar').style.display = 'none';
+  document.getElementById('clinFeed').innerHTML = `
+    <div class="loader">
+      <div class="spinner green"></div>
+      <div class="loader-txt">Fetching clinical decision news…</div>
+      <div class="prog-wrap"><div class="prog-bar green" id="clinProgBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+function showRweLoader() {
+  document.getElementById('rweStatsBar').style.display  = 'none';
+  document.getElementById('rweFilterBar').style.display = 'none';
+  document.getElementById('rweFeed').innerHTML = `
+    <div class="loader">
+      <div class="spinner purple"></div>
+      <div class="loader-txt">Fetching real world evidence news…</div>
+      <div class="prog-wrap"><div class="prog-bar purple" id="rweProgBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+/* ─────────────────────────────────────────────
+   Render — M&A
+───────────────────────────────────────────── */
+function renderMandA() {
+  const feedEl    = document.getElementById('feed');
+  const statsBar  = document.getElementById('statsBar');
+  const filterBar = document.getElementById('filterBar');
+
+  if (allArticles.length === 0) {
     feedEl.innerHTML = `
       <div class="error-box">
-        <h3>⚠️ No M&amp;A articles found</h3>
+        <h3>No M&amp;A articles found</h3>
         <p>
           No articles matching deal keywords were returned by the RSS feeds.<br><br>
           If you see a network error, try opening the file via a local server:<br>
@@ -480,21 +918,13 @@ async function loadNews() {
     return;
   }
 
-  const activeSources = new Set(collected.map(a => a._sourceName));
-  document.getElementById('cntArticles').textContent = collected.length;
+  const activeSources = new Set(allArticles.map(a => a._sourceName));
+  document.getElementById('cntArticles').textContent = allArticles.length;
   document.getElementById('cntSources').textContent  = activeSources.size;
   document.getElementById('cntCats').textContent     = FEEDS.length;
   statsBar.style.display  = 'flex';
   filterBar.style.display = 'flex';
 
-  renderFeed();
-}
-
-/* ─────────────────────────────────────────────
-   Render
-───────────────────────────────────────────── */
-function renderFeed() {
-  const feedEl   = document.getElementById('feed');
   const filtered = activeFilter === 'all'
     ? allArticles
     : allArticles.filter(a => a._sourceId === activeFilter);
@@ -509,17 +939,176 @@ function renderFeed() {
     return;
   }
 
-  feedEl.innerHTML = `<div class="feed">${filtered.map(card).join('')}</div>`;
+  feedEl.innerHTML = `<div class="feed">${filtered.map(mandaCard).join('')}</div>`;
 }
 
-function card(a) {
+/* ─────────────────────────────────────────────
+   Render — Clinical Decisions
+───────────────────────────────────────────── */
+function renderClinical() {
+  const feedEl    = document.getElementById('clinFeed');
+  const statsBar  = document.getElementById('clinStatsBar');
+  const filterBar = document.getElementById('clinFilterBar');
+
+  if (clinicalArticles.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔬</div>
+        <h3>No clinical decision news found in the last 30 days</h3>
+        <p>No articles mentioning Wolters Kluwer, Elsevier, EBSCO, Micromedex, Doximity, OpenEvidence, or Epocrates were found.<br>Try clicking Refresh to reload feeds.</p>
+      </div>`;
+    return;
+  }
+
+  // Count unique vendors and sources covered
+  const coveredVendors = new Set();
+  const coveredSources = new Set();
+  clinicalArticles.forEach(a => {
+    matchedVendors(a).forEach(v => coveredVendors.add(v.id));
+    coveredSources.add(a._sourceName);
+  });
+
+  document.getElementById('clinCntArticles').textContent = clinicalArticles.length;
+  document.getElementById('clinCntVendors').textContent  = coveredVendors.size;
+  document.getElementById('clinCntSources').textContent  = coveredSources.size;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  const filtered = activeClinicalFilter === 'all'
+    ? clinicalArticles
+    : clinicalArticles.filter(a => matchedVendors(a).some(v => v.id === activeClinicalFilter));
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No articles for this vendor in the last 30 days</h3>
+        <p>Try a different vendor filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(clinicalCard).join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────────
+   Render — Real World Evidence
+───────────────────────────────────────────── */
+function renderRwe() {
+  const feedEl    = document.getElementById('rweFeed');
+  const statsBar  = document.getElementById('rweStatsBar');
+  const filterBar = document.getElementById('rweFilterBar');
+
+  if (rweArticles.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔬</div>
+        <h3>No real world evidence news found in the last 30 days</h3>
+        <p>No articles mentioning Komodo Health, Optum, MarketScan, Inovalon, IQVIA, Norstella, HealthVerity, or PurpleLab were found.<br>Try clicking Refresh to reload feeds.</p>
+      </div>`;
+    return;
+  }
+
+  const coveredVendors = new Set();
+  const coveredSources = new Set();
+  rweArticles.forEach(a => {
+    matchedRweVendors(a).forEach(v => coveredVendors.add(v.id));
+    coveredSources.add(a._sourceName);
+  });
+
+  document.getElementById('rweCntArticles').textContent = rweArticles.length;
+  document.getElementById('rweCntVendors').textContent  = coveredVendors.size;
+  document.getElementById('rweCntSources').textContent  = coveredSources.size;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  const filtered = activeRweFilter === 'all'
+    ? rweArticles
+    : rweArticles.filter(a => matchedRweVendors(a).some(v => v.id === activeRweFilter));
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No articles for this vendor in the last 30 days</h3>
+        <p>Try a different vendor filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(rweCard).join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────────
+   Card renderers
+───────────────────────────────────────────── */
+function mandaCard(a) {
   const date    = relDate(a.publishedAt);
   const summary = snippet(a.description);
-
   return `
     <article class="card">
       <div class="card-meta">
         <span class="badge-src">${esc(a._sourceName)}</span>
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+function clinicalCard(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+  const vendors = matchedVendors(a);
+  const vendorBadges = vendors.map(v => `<span class="badge-vendor">${esc(v.label)}</span>`).join('');
+  return `
+    <article class="card clin">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        ${vendorBadges}
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+function rweCard(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+  const vendors = matchedRweVendors(a);
+  const vendorBadges = vendors.map(v => `<span class="badge-rwe-vendor">${esc(v.label)}</span>`).join('');
+  return `
+    <article class="card rwe">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        ${vendorBadges}
         <span class="badge-date">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
@@ -579,21 +1168,62 @@ function esc(s) {
 }
 
 /* ─────────────────────────────────────────────
-   Filter chips  (filter by source, not category)
+   Tab switching
+───────────────────────────────────────────── */
+document.querySelector('.tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  const tab = btn.dataset.tab;
+  if (tab === activeTab) return;
+  activeTab = tab;
+
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel-${tab}`).classList.add('active');
+});
+
+/* ─────────────────────────────────────────────
+   M&A source filter chips
 ───────────────────────────────────────────── */
 document.getElementById('filterBar').addEventListener('click', e => {
   const btn = e.target.closest('.chip');
   if (!btn) return;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  document.querySelectorAll('#filterBar .chip').forEach(c => c.classList.remove('on'));
   btn.classList.add('on');
   activeFilter = btn.dataset.src;
-  renderFeed();
+  renderMandA();
+});
+
+/* ─────────────────────────────────────────────
+   Clinical vendor filter chips
+───────────────────────────────────────────── */
+document.getElementById('clinFilterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#clinFilterBar .chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeClinicalFilter = btn.dataset.vendor;
+  renderClinical();
+});
+
+/* ─────────────────────────────────────────────
+   RWE vendor filter chips
+───────────────────────────────────────────── */
+document.getElementById('rweFilterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#rweFilterBar .chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeRweFilter = btn.dataset.rwe;
+  renderRwe();
 });
 
 /* ─────────────────────────────────────────────
    Boot
 ───────────────────────────────────────────── */
-loadNews();
+loadAll();
 </script>
 </body>
 </html>
