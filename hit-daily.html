@@ -580,10 +580,10 @@
     <div class="filters" id="rweFilterBar" style="display:none">
       <button class="chip purple-chip on" data-rwe="all">All Vendors</button>
       <button class="chip purple-chip" data-rwe="komodo">Komodo Health</button>
-      <button class="chip purple-chip" data-rwe="optum">Optum</button>
+      <button class="chip purple-chip" data-rwe="optum">Optum Insights</button>
       <button class="chip purple-chip" data-rwe="marketscan">MarketScan</button>
       <button class="chip purple-chip" data-rwe="inovalon">Inovalon</button>
-      <button class="chip purple-chip" data-rwe="iqvia">IQVIA</button>
+      <button class="chip purple-chip" data-rwe="iqvia">IQVIA Data</button>
       <button class="chip purple-chip" data-rwe="norstella">Norstella</button>
       <button class="chip purple-chip" data-rwe="healthverity">HealthVerity</button>
       <button class="chip purple-chip" data-rwe="purplelab">PurpleLab</button>
@@ -966,21 +966,37 @@ const IMAGING_FEEDS = [
    M&A keyword filter
 ───────────────────────────────────────────── */
 const KEYWORDS = [
+  // Acquisitions
   'acquisition', 'acquires', 'acquired', 'acquiring', 'acqui-hire',
+  'strategic acquisition', 'buys', 'purchased', 'purchase', 'take private',
+  'takes private', 'taken private', 'go private', 'goes private',
+  // Mergers
   'merger', 'mergers', 'merges', 'merged', 'merging', 'merge',
-  'divestiture', 'divestitures', 'divests', 'divested', 'divesting',
-  'spin-off', 'spinoff', 'spun off', 'carve-out', 'carveout',
-  'funding round', 'funding rounds', 'series a', 'series b', 'series c',
-  'series d', 'series e', 'seed round', 'seed funding', 'pre-seed',
-  'raises', 'raised', 'secures funding', 'closes funding',
+  'consolidation', 'combined company', 'combined entity',
+  // Divestitures & Spin-offs
+  'divestiture', 'divestitures', 'divests', 'divested', 'divesting', 'divestment',
+  'spin-off', 'spinoff', 'spun off', 'carve-out', 'carveout', 'carved out',
+  'sells unit', 'sells division', 'sells its', 'sold to', 'sold its',
+  // Funding Rounds
+  'funding round', 'funding rounds', 'investment round',
+  'series a', 'series b', 'series c', 'series d', 'series e', 'series f', 'series g',
+  'seed round', 'seed funding', 'pre-seed', 'post-seed',
+  'bridge round', 'bridge funding', 'extension round',
+  'raises $', 'raised $', 'secures funding', 'closes funding', 'secures investment',
+  'oversubscribed', 'closes round',
+  'capital raise', 'equity raise', 'debt financing', 'credit facility',
+  // Investors & PE
   'venture capital', 'venture funding', 'vc funding', 'vc-backed',
   'buyout', 'leveraged buyout', 'lbo', 'management buyout', 'mbo',
   'private equity', 'pe-backed', 'growth equity', 'growth investment',
+  'equity investment', 'equity stake', 'strategic investment',
   'recapitalization', 'majority stake', 'minority stake',
+  // Public Markets
   'ipo', 'initial public offering', 'spac', 'goes public', 'direct listing',
-  'capital raise', 'investment round',
-  'deal', 'transaction', 'strategic acquisition', 'buys', 'purchased',
-  'joint venture', 'partnership agreement', 'definitive agreement',
+  // Deal Language
+  'definitive agreement', 'definitive merger agreement', 'signs definitive',
+  'letter of intent', 'term sheet', 'memorandum of understanding',
+  'joint venture', 'partnership agreement', 'definitive merger agreement',
 ];
 
 function isMandA(article) {
@@ -1038,10 +1054,10 @@ function isClinicalDecisions(article) {
 ───────────────────────────────────────────── */
 const RWE_VENDORS = [
   { id: 'komodo',      label: 'Komodo Health',  term: 'komodo health' },
-  { id: 'optum',       label: 'Optum',          term: 'optum' },
+  { id: 'optum',       label: 'Optum Insights',  term: 'optum insights' },
   { id: 'marketscan',  label: 'MarketScan',     term: 'marketscan' },
   { id: 'inovalon',    label: 'Inovalon',       term: 'inovalon' },
-  { id: 'iqvia',       label: 'IQVIA',          term: 'iqvia' },
+  { id: 'iqvia',       label: 'IQVIA Data',      term: 'iqvia data' },
   { id: 'norstella',   label: 'Norstella',      term: 'norstella' },
   { id: 'healthverity',label: 'HealthVerity',   term: 'healthverity' },
   { id: 'purplelab',   label: 'PurpleLab',      term: 'purplelab' },
@@ -1208,10 +1224,10 @@ async function loadAll() {
     Promise.all(IMAGING_FEEDS.map(fetchFeed)),
   ]);
 
-  // --- M&A tab: de-dup from general feeds only ---
+  // --- M&A tab: de-dup from ALL health tech feeds ---
   const seenMA = new Set();
   rawArticles = [];
-  generalResults.forEach(items => {
+  [...generalResults, ...clinOnlyResults, ...rweOnlyResults, ...benOnlyResults, ...ctOnlyResults, ...imgOnlyResults].forEach(items => {
     items.forEach(a => {
       if (!a.url || !a.title) return;
       if (seenMA.has(a.url)) return;
@@ -1244,7 +1260,7 @@ async function loadAll() {
     });
   });
 
-  // Process M&A tab
+  // Process M&A tab — all health tech feeds, filtered by M&A/deal keywords + health relevance
   allArticles = rawArticles
     .filter(a => isMandA(a) && isHealthcare(a))
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
@@ -1522,7 +1538,7 @@ function renderRwe() {
       <div class="empty">
         <div class="icon">🔬</div>
         <h3>No real world evidence news found in the last 30 days</h3>
-        <p>No articles mentioning Komodo Health, Optum, MarketScan, Inovalon, IQVIA, Norstella, HealthVerity, or PurpleLab were found.<br>Try clicking Refresh to reload feeds.</p>
+        <p>No articles mentioning Komodo Health, Optum Insights, MarketScan, Inovalon, IQVIA Data, Norstella, HealthVerity, or PurpleLab were found.<br>Try clicking Refresh to reload feeds.</p>
       </div>`;
     return;
   }
