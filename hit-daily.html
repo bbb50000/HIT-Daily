@@ -90,6 +90,9 @@
     .tab-btn.active { color: #2d9cdb; border-bottom-color: #2d9cdb; }
     .tab-btn.active.clin { color: #10b981; border-bottom-color: #10b981; }
     .tab-btn.active.rwe  { color: #a78bfa; border-bottom-color: #a78bfa; }
+    .tab-btn.active.ben  { color: #f59e0b; border-bottom-color: #f59e0b; }
+    .tab-btn.active.ct   { color: #06b6d4; border-bottom-color: #06b6d4; }
+    .tab-btn.active.img  { color: #f43f5e; border-bottom-color: #f43f5e; }
 
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
@@ -106,6 +109,9 @@
     .stat-val { font-size: 26px; font-weight: 800; color: #2d9cdb; line-height: 1; }
     .stat-val.green  { color: #10b981; }
     .stat-val.purple { color: #a78bfa; }
+    .stat-val.amber  { color: #f59e0b; }
+    .stat-val.cyan   { color: #06b6d4; }
+    .stat-val.rose   { color: #f43f5e; }
     .stat-lbl { font-size: 11px; color: #3a5070; text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; }
 
     /* ── Filter chips ── */
@@ -132,6 +138,21 @@
       background: rgba(167,139,250,.12);
       border-color: #a78bfa;
       color: #a78bfa;
+    }
+    .chip.amber-chip:hover, .chip.amber-chip.on {
+      background: rgba(245,158,11,.12);
+      border-color: #f59e0b;
+      color: #f59e0b;
+    }
+    .chip.cyan-chip:hover, .chip.cyan-chip.on {
+      background: rgba(6,182,212,.12);
+      border-color: #06b6d4;
+      color: #06b6d4;
+    }
+    .chip.rose-chip:hover, .chip.rose-chip.on {
+      background: rgba(244,63,94,.12);
+      border-color: #f43f5e;
+      color: #f43f5e;
     }
 
     /* ── Date window badge ── */
@@ -162,12 +183,18 @@
     }
     .spinner.green  { border-top-color: #10b981; }
     .spinner.purple { border-top-color: #a78bfa; }
+    .spinner.amber  { border-top-color: #f59e0b; }
+    .spinner.cyan   { border-top-color: #06b6d4; }
+    .spinner.rose   { border-top-color: #f43f5e; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loader-txt { margin-top: 16px; color: #3a5070; font-size: 14px; }
     .prog-wrap { width: 220px; height: 3px; background: #1a3050; border-radius: 2px; margin: 14px auto 0; overflow: hidden; }
     .prog-bar  { height: 100%; background: linear-gradient(90deg,#1560a8,#2d9cdb); border-radius: 2px; transition: width .35s ease; }
     .prog-bar.green  { background: linear-gradient(90deg,#059669,#10b981); }
     .prog-bar.purple { background: linear-gradient(90deg,#7c3aed,#a78bfa); }
+    .prog-bar.amber  { background: linear-gradient(90deg,#d97706,#f59e0b); }
+    .prog-bar.cyan   { background: linear-gradient(90deg,#0891b2,#06b6d4); }
+    .prog-bar.rose   { background: linear-gradient(90deg,#e11d48,#f43f5e); }
 
     /* ── News cards ── */
     .feed { display: flex; flex-direction: column; gap: 14px; }
@@ -193,6 +220,15 @@
     .card.rwe::before {
       background: linear-gradient(180deg, #7c3aed, #a78bfa);
     }
+    .card.ben::before {
+      background: linear-gradient(180deg, #d97706, #f59e0b);
+    }
+    .card.ct::before {
+      background: linear-gradient(180deg, #0891b2, #06b6d4);
+    }
+    .card.img::before {
+      background: linear-gradient(180deg, #e11d48, #f43f5e);
+    }
     .card:hover {
       border-color: #2d9cdb;
       transform: translateX(3px);
@@ -205,6 +241,18 @@
     .card.rwe:hover {
       border-color: #a78bfa;
       box-shadow: 0 4px 24px rgba(167,139,250,.1);
+    }
+    .card.ben:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 4px 24px rgba(245,158,11,.1);
+    }
+    .card.ct:hover {
+      border-color: #06b6d4;
+      box-shadow: 0 4px 24px rgba(6,182,212,.1);
+    }
+    .card.img:hover {
+      border-color: #f43f5e;
+      box-shadow: 0 4px 24px rgba(244,63,94,.1);
     }
 
     .card-meta {
@@ -235,6 +283,30 @@
       font-size: 10px; font-weight: 700;
       letter-spacing: .3px;
     }
+    .badge-ben-vendor {
+      background: rgba(245,158,11,.12);
+      color: #f59e0b;
+      border: 1px solid rgba(245,158,11,.28);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .badge-ct-vendor {
+      background: rgba(6,182,212,.12);
+      color: #06b6d4;
+      border: 1px solid rgba(6,182,212,.28);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .badge-img-vendor {
+      background: rgba(244,63,94,.12);
+      color: #f43f5e;
+      border: 1px solid rgba(244,63,94,.28);
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .3px;
+    }
     .badge-date {
       color: #3a5070; font-size: 12px;
       display: flex; align-items: center; gap: 4px;
@@ -256,6 +328,9 @@
     .card-title a:hover { color: #2d9cdb; }
     .card.clin .card-title a:hover { color: #10b981; }
     .card.rwe  .card-title a:hover { color: #a78bfa; }
+    .card.ben  .card-title a:hover { color: #f59e0b; }
+    .card.ct   .card-title a:hover { color: #06b6d4; }
+    .card.img  .card-title a:hover { color: #f43f5e; }
 
     .card-body {
       font-size: 14px; color: #7a9ab8; line-height: 1.65; margin-bottom: 14px;
@@ -270,6 +345,9 @@
     .read-more:hover { gap: 9px; }
     .card.clin .read-more { color: #10b981; }
     .card.rwe  .read-more { color: #a78bfa; }
+    .card.ben  .read-more { color: #f59e0b; }
+    .card.ct   .read-more { color: #06b6d4; }
+    .card.img  .read-more { color: #f43f5e; }
 
     /* ── Error / empty ── */
     .error-box {
@@ -337,6 +415,18 @@
     <button class="tab-btn rwe" data-tab="rwe">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
       Real World Evidence
+    </button>
+    <button class="tab-btn ben" data-tab="benefits">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><line x1="7" y1="8" x2="11" y2="8"/><line x1="7" y1="12" x2="11" y2="12"/><rect x="13" y="8" width="4" height="4"/></svg>
+      Benefits Analytics
+    </button>
+    <button class="tab-btn ct" data-tab="ct">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+      Clinical Trials
+    </button>
+    <button class="tab-btn img" data-tab="imaging">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      Imaging
     </button>
   </div>
 
@@ -508,6 +598,168 @@
     </div>
   </div><!-- /panel-rwe -->
 
+  <!-- ══════════════════════════════════════════
+       BENEFITS ANALYTICS PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-benefits" class="tab-panel">
+
+    <div class="stats" id="benStatsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val amber" id="benCntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val amber" id="benCntVendors">0</div>
+          <div class="stat-lbl">Vendors Covered</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val amber" id="benCntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val amber">30</div>
+          <div class="stat-lbl">Day Window</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters" id="benFilterBar" style="display:none">
+      <button class="chip amber-chip on" data-ben="all">All Vendors</button>
+      <button class="chip amber-chip" data-ben="truven">Truven</button>
+      <button class="chip amber-chip" data-ben="springbuk">Springbuk</button>
+      <button class="chip amber-chip" data-ben="cedar">Cedar Gate</button>
+      <button class="chip amber-chip" data-ben="cert">Certilytics</button>
+      <button class="chip amber-chip" data-ben="mede">MedeAnalytics</button>
+      <button class="chip amber-chip" data-ben="artemis">Artemis Health</button>
+      <button class="chip amber-chip" data-ben="nomi">Nomi Health</button>
+      <button class="chip amber-chip" data-ben="mercer">Mercer</button>
+      <button class="chip amber-chip" data-ben="milliman">Milliman</button>
+      <button class="chip amber-chip" data-ben="wtw">Willis Towers Watson</button>
+      <button class="chip amber-chip" data-ben="aon">AON</button>
+      <button class="chip amber-chip" data-ben="bb">Brown and Brown</button>
+    </div>
+
+    <div id="benFeed">
+      <div class="loader">
+        <div class="spinner amber"></div>
+        <div class="loader-txt">Fetching benefits analytics news…</div>
+        <div class="prog-wrap"><div class="prog-bar amber" id="benProgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-benefits -->
+
+  <!-- ══════════════════════════════════════════
+       CLINICAL TRIALS PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-ct" class="tab-panel">
+
+    <div class="stats" id="ctStatsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val cyan" id="ctCntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val cyan" id="ctCntVendors">0</div>
+          <div class="stat-lbl">Vendors Covered</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val cyan" id="ctCntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val cyan">30</div>
+          <div class="stat-lbl">Day Window</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters" id="ctFilterBar" style="display:none">
+      <button class="chip cyan-chip on" data-ct="all">All Vendors</button>
+      <button class="chip cyan-chip" data-ct="zelta">Zelta</button>
+      <button class="chip cyan-chip" data-ct="veeva">Veeva</button>
+      <button class="chip cyan-chip" data-ct="oracle">Oracle Clinical</button>
+      <button class="chip cyan-chip" data-ct="medrio">Medrio</button>
+      <button class="chip cyan-chip" data-ct="medidata">Medidata</button>
+      <button class="chip cyan-chip" data-ct="greenphire">Greenphire</button>
+      <button class="chip cyan-chip" data-ct="suvoda">Suvoda</button>
+      <button class="chip cyan-chip" data-ct="iqvia">IQVIA</button>
+    </div>
+
+    <div id="ctFeed">
+      <div class="loader">
+        <div class="spinner cyan"></div>
+        <div class="loader-txt">Fetching clinical trials news…</div>
+        <div class="prog-wrap"><div class="prog-bar cyan" id="ctProgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-ct -->
+
+  <!-- ══════════════════════════════════════════
+       IMAGING PANEL
+  ══════════════════════════════════════════ -->
+  <div id="panel-imaging" class="tab-panel">
+
+    <div class="stats" id="imgStatsBar" style="display:none">
+      <div class="stat">
+        <div>
+          <div class="stat-val rose" id="imgCntArticles">0</div>
+          <div class="stat-lbl">Articles</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val rose" id="imgCntVendors">0</div>
+          <div class="stat-lbl">Vendors Covered</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val rose" id="imgCntSources">0</div>
+          <div class="stat-lbl">Sources</div>
+        </div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-val rose">30</div>
+          <div class="stat-lbl">Day Window</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filters" id="imgFilterBar" style="display:none">
+      <button class="chip rose-chip on" data-img="all">All Vendors</button>
+      <button class="chip rose-chip" data-img="merge">Merge Healthcare</button>
+      <button class="chip rose-chip" data-img="ge">GE Healthcare</button>
+      <button class="chip rose-chip" data-img="intelerad">Intelerad</button>
+      <button class="chip rose-chip" data-img="sectra">Sectra</button>
+      <button class="chip rose-chip" data-img="agfa">AGFA</button>
+      <button class="chip rose-chip" data-img="philips">Philips</button>
+      <button class="chip rose-chip" data-img="changehc">Change Healthcare</button>
+    </div>
+
+    <div id="imgFeed">
+      <div class="loader">
+        <div class="spinner rose"></div>
+        <div class="loader-txt">Fetching imaging news…</div>
+        <div class="prog-wrap"><div class="prog-bar rose" id="imgProgBar" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div><!-- /panel-imaging -->
+
 </div><!-- /page -->
 
 <script>
@@ -628,6 +880,89 @@ const RWE_FEEDS = [
 ];
 
 /* ─────────────────────────────────────────────
+   Benefits Analytics feeds (vendor searches)
+   Fetched exclusively for the Benefits Analytics tab.
+───────────────────────────────────────────── */
+const BENEFITS_FEEDS = [
+  // ── Google News vendor-targeted RSS searches ──────────────
+  { id: 'gn-truven',    name: 'Google News – Truven',               url: 'https://news.google.com/rss/search?q=%22Truven%22+health+OR+analytics+OR+benefits&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-springbuk', name: 'Google News – Springbuk',            url: 'https://news.google.com/rss/search?q=%22Springbuk%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-cedar',     name: 'Google News – Cedar Gate',           url: 'https://news.google.com/rss/search?q=%22Cedar+Gate%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-cert',      name: 'Google News – Certilytics',          url: 'https://news.google.com/rss/search?q=%22Certilytics%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-mede',      name: 'Google News – MedeAnalytics',        url: 'https://news.google.com/rss/search?q=%22MedeAnalytics%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-artemis',   name: 'Google News – Artemis Health',       url: 'https://news.google.com/rss/search?q=%22Artemis+Health%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-nomi',      name: 'Google News – Nomi Health',          url: 'https://news.google.com/rss/search?q=%22Nomi+Health%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-mercer',    name: 'Google News – Mercer',               url: 'https://news.google.com/rss/search?q=%22Mercer%22+health+OR+benefits+OR+analytics+OR+actuarial&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-milliman',  name: 'Google News – Milliman',             url: 'https://news.google.com/rss/search?q=%22Milliman%22+health+OR+benefits+OR+actuarial+OR+insurance&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-wtw',       name: 'Google News – Willis Towers Watson', url: 'https://news.google.com/rss/search?q=%22Willis+Towers+Watson%22+OR+%22WTW%22+benefits+OR+health+OR+analytics&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-aon',       name: 'Google News – AON',                  url: 'https://news.google.com/rss/search?q=%22Aon%22+health+OR+benefits+OR+analytics+OR+insurance&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-bb',        name: 'Google News – Brown and Brown',      url: 'https://news.google.com/rss/search?q=%22Brown+%26+Brown%22+OR+%22Brown+and+Brown%22+benefits+OR+insurance+OR+health&hl=en-US&gl=US&ceid=US:en' },
+  // ── Employee benefits & HR trade publications ─────────────
+  { id: 'ben-pro',      name: 'BenefitsPRO',                        url: 'https://www.benefitspro.com/rss/' },
+  { id: 'ebn',          name: 'Employee Benefit News',               url: 'https://www.benefitnews.com/rss/' },
+  { id: 'hrdive',       name: 'HR Dive',                            url: 'https://www.hrdive.com/feeds/news/' },
+  { id: 'shrm',         name: 'SHRM HR News',                       url: 'https://www.shrm.org/rss/pages/rss.aspx' },
+  { id: 'ben-kff',      name: 'KFF Health News',                    url: 'https://kffhealthnews.org/feed/' },
+  { id: 'ben-mhe',      name: 'Managed Healthcare Executive',       url: 'https://www.managedhealthcareexecutive.com/rss/all' },
+  { id: 'healthaff',    name: 'Health Affairs',                     url: 'https://www.healthaffairs.org/rss/current' },
+  { id: 'ins-jrnl',     name: 'Insurance Journal',                  url: 'https://www.insurancejournal.com/feeds/rss/' },
+  { id: 'ben-inshpro',  name: 'Insurance Business',                 url: 'https://www.insurancebusinessmag.com/us/rss/' },
+];
+
+/* ─────────────────────────────────────────────
+   Clinical Trials feeds (vendor searches)
+   Fetched exclusively for the Clinical Trials tab.
+───────────────────────────────────────────── */
+const CT_FEEDS = [
+  // ── Google News vendor-targeted RSS searches ──────────────
+  { id: 'gn-zelta',      name: 'Google News – Zelta',          url: 'https://news.google.com/rss/search?q=%22Zelta%22+clinical+OR+trials+OR+eClinical&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-veeva',      name: 'Google News – Veeva',          url: 'https://news.google.com/rss/search?q=%22Veeva%22+clinical+OR+trials+OR+vault&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-oracle-ct',  name: 'Google News – Oracle Clinical', url: 'https://news.google.com/rss/search?q=%22Oracle+Clinical%22+OR+%22Oracle+Health+Sciences%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-medrio',     name: 'Google News – Medrio',         url: 'https://news.google.com/rss/search?q=%22Medrio%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-medidata',   name: 'Google News – Medidata',       url: 'https://news.google.com/rss/search?q=%22Medidata%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-greenphire', name: 'Google News – Greenphire',     url: 'https://news.google.com/rss/search?q=%22Greenphire%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-suvoda',     name: 'Google News – Suvoda',         url: 'https://news.google.com/rss/search?q=%22Suvoda%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-iqvia-ct',   name: 'Google News – IQVIA',          url: 'https://news.google.com/rss/search?q=%22IQVIA%22+clinical+OR+trials+OR+eClinical&hl=en-US&gl=US&ceid=US:en' },
+  // ── Clinical trials trade publications ───────────────────
+  { id: 'ct-clinldr',    name: 'Clinical Leader',              url: 'https://www.clinicalleader.com/rss/all' },
+  { id: 'ct-applct',     name: 'Applied Clinical Trials',      url: 'https://www.appliedclinicaltrialsonline.com/rss/all' },
+  { id: 'ct-endpts',     name: 'Endpoints News',               url: 'https://endpts.com/feed/' },
+  { id: 'ct-pharmavoice',name: 'PharmaVoice',                  url: 'https://www.pharmavoice.com/feed/' },
+  { id: 'ct-fdanews',    name: 'FDA News',                     url: 'https://www.fdanews.com/rss/headlines' },
+  { id: 'ct-pharmexec',  name: 'Pharmaceutical Executive',     url: 'https://www.pharmexec.com/rss/all' },
+  { id: 'ct-pharmtech',  name: 'Pharmaceutical Technology',    url: 'https://www.pharmtech.com/rss/all' },
+  { id: 'ct-outsrc',     name: 'Outsourcing-Pharma',           url: 'https://www.outsourcing-pharma.com/feed' },
+  { id: 'ct-lifsci',     name: 'Life Science Leader',          url: 'https://www.lifescienceleader.com/feed/' },
+  { id: 'ct-acrp',       name: 'ACRP',                         url: 'https://acrpnet.org/feed/' },
+  { id: 'ct-centerwatch',name: 'CenterWatch',                  url: 'https://www.centerwatch.com/rss.xml' },
+  { id: 'ct-raps',       name: 'RAPS Regulatory Focus',        url: 'https://www.raps.org/rss/news' },
+];
+
+/* ─────────────────────────────────────────────
+   Imaging feeds (vendor searches)
+   Fetched exclusively for the Imaging tab.
+───────────────────────────────────────────── */
+const IMAGING_FEEDS = [
+  // ── Google News vendor-targeted RSS searches ──────────────
+  { id: 'gn-merge',     name: 'Google News – Merge Healthcare',  url: 'https://news.google.com/rss/search?q=%22Merge+Healthcare%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-ge',        name: 'Google News – GE Healthcare',     url: 'https://news.google.com/rss/search?q=%22GE+Healthcare%22+imaging+OR+radiology+OR+PACS+OR+diagnostic&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-intelerad', name: 'Google News – Intelerad',         url: 'https://news.google.com/rss/search?q=%22Intelerad%22&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-sectra',    name: 'Google News – Sectra',            url: 'https://news.google.com/rss/search?q=%22Sectra%22+imaging+OR+radiology+OR+PACS+OR+healthcare&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-agfa',      name: 'Google News – AGFA',              url: 'https://news.google.com/rss/search?q=%22AGFA%22+imaging+OR+radiology+OR+healthcare+OR+PACS&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-philips',   name: 'Google News – Philips',           url: 'https://news.google.com/rss/search?q=%22Philips%22+imaging+OR+radiology+OR+healthcare+OR+diagnostic&hl=en-US&gl=US&ceid=US:en' },
+  { id: 'gn-changehc',  name: 'Google News – Change Healthcare', url: 'https://news.google.com/rss/search?q=%22Change+Healthcare%22&hl=en-US&gl=US&ceid=US:en' },
+  // ── Radiology & imaging trade publications ────────────────
+  { id: 'img-auntminnie',  name: 'AuntMinnie',                   url: 'https://www.auntminnie.com/rss' },
+  { id: 'img-diagimag',    name: 'Diagnostic Imaging',           url: 'https://www.diagnosticimaging.com/rss/all' },
+  { id: 'img-radbiz',      name: 'Radiology Business',           url: 'https://radiologybusiness.com/rss.xml' },
+  { id: 'img-itn',         name: 'Imaging Technology News',      url: 'https://www.itnonline.com/rss.xml' },
+  { id: 'img-apprad',      name: 'Applied Radiology',            url: 'https://appliedradiology.com/feed' },
+  { id: 'img-radtoday',    name: 'Radiology Today',              url: 'https://www.radiologytoday.net/rss.xml' },
+  { id: 'img-medtechdive', name: 'MedTech Dive',                 url: 'https://www.medtechdive.com/feeds/news/' },
+  { id: 'img-healthimag',  name: 'Health Imaging',               url: 'https://www.healthimaging.com/rss/all' },
+];
+
+/* ─────────────────────────────────────────────
    M&A keyword filter
 ───────────────────────────────────────────── */
 const KEYWORDS = [
@@ -722,6 +1057,81 @@ function isRweVendor(article) {
   return matchedRweVendors(article).length > 0;
 }
 
+/* ─────────────────────────────────────────────
+   Benefits Analytics vendor keywords
+───────────────────────────────────────────── */
+const BENEFITS_VENDORS = [
+  { id: 'truven',    label: 'Truven',               term: 'truven' },
+  { id: 'springbuk', label: 'Springbuk',            term: 'springbuk' },
+  { id: 'cedar',     label: 'Cedar Gate',           term: 'cedar gate' },
+  { id: 'cert',      label: 'Certilytics',          term: 'certilytics' },
+  { id: 'mede',      label: 'MedeAnalytics',        term: 'medeanalytics' },
+  { id: 'artemis',   label: 'Artemis Health',       term: 'artemis health' },
+  { id: 'nomi',      label: 'Nomi Health',          term: 'nomi health' },
+  { id: 'mercer',    label: 'Mercer',               term: 'mercer' },
+  { id: 'milliman',  label: 'Milliman',             term: 'milliman' },
+  { id: 'wtw',       label: 'Willis Towers Watson', term: 'willis towers watson' },
+  { id: 'aon',       label: 'AON',                  term: 'aon' },
+  { id: 'bb',        label: 'Brown and Brown',      term: 'brown and brown' },
+];
+
+function matchedBenVendors(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return BENEFITS_VENDORS.filter(v => text.includes(v.term));
+}
+
+function isBenVendor(article) {
+  return matchedBenVendors(article).length > 0;
+}
+
+/* ─────────────────────────────────────────────
+   Clinical Trials vendor keywords
+───────────────────────────────────────────── */
+const CT_VENDORS = [
+  { id: 'zelta',      label: 'Zelta',           term: 'zelta' },
+  { id: 'veeva',      label: 'Veeva',           term: 'veeva' },
+  { id: 'oracle',     label: 'Oracle Clinical', term: 'oracle clinical' },
+  { id: 'medrio',     label: 'Medrio',          term: 'medrio' },
+  { id: 'medidata',   label: 'Medidata',        term: 'medidata' },
+  { id: 'greenphire', label: 'Greenphire',      term: 'greenphire' },
+  { id: 'suvoda',     label: 'Suvoda',          term: 'suvoda' },
+  { id: 'iqvia',      label: 'IQVIA',           term: 'iqvia' },
+];
+
+function matchedCtVendors(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return CT_VENDORS.filter(v => text.includes(v.term));
+}
+
+function isCtVendor(article) {
+  return matchedCtVendors(article).length > 0;
+}
+
+/* ─────────────────────────────────────────────
+   Imaging vendor keywords
+───────────────────────────────────────────── */
+const IMAGING_VENDORS = [
+  { id: 'merge',    label: 'Merge Healthcare',  term: 'merge healthcare' },
+  { id: 'ge',       label: 'GE Healthcare',     term: 'ge healthcare' },
+  { id: 'intelerad',label: 'Intelerad',         term: 'intelerad' },
+  { id: 'sectra',   label: 'Sectra',            term: 'sectra' },
+  { id: 'agfa',     label: 'AGFA',              term: 'agfa' },
+  { id: 'philips',  label: 'Philips',           term: 'philips' },
+  { id: 'changehc', label: 'Change Healthcare', term: 'change healthcare' },
+];
+
+function matchedImgVendors(article) {
+  const text = [article.title, article.description]
+    .filter(Boolean).join(' ').toLowerCase();
+  return IMAGING_VENDORS.filter(v => text.includes(v.term));
+}
+
+function isImgVendor(article) {
+  return matchedImgVendors(article).length > 0;
+}
+
 function isWithin30Days(article) {
   if (!article.publishedAt) return false;
   const pub = new Date(article.publishedAt);
@@ -736,9 +1146,15 @@ let rawArticles          = [];
 let allArticles          = [];   // M&A filtered
 let clinicalArticles     = [];   // Clinical Decisions filtered
 let rweArticles          = [];   // Real World Evidence filtered
+let benArticles          = [];   // Benefits Analytics filtered
+let ctArticles           = [];   // Clinical Trials filtered
+let imgArticles          = [];   // Imaging filtered
 let activeFilter         = 'all';
 let activeClinicalFilter = 'all';
 let activeRweFilter      = 'all';
+let activeBenFilter      = 'all';
+let activeCtFilter       = 'all';
+let activeImgFilter      = 'all';
 let activeTab            = 'manda';
 
 /* ─────────────────────────────────────────────
@@ -778,12 +1194,18 @@ async function loadAll() {
   showMandALoader();
   showClinicalLoader();
   showRweLoader();
+  showBenefitsLoader();
+  showCtLoader();
+  showImgLoader();
 
-  // Fetch all three feed sets in parallel
-  const [generalResults, clinOnlyResults, rweOnlyResults] = await Promise.all([
+  // Fetch all six feed sets in parallel
+  const [generalResults, clinOnlyResults, rweOnlyResults, benOnlyResults, ctOnlyResults, imgOnlyResults] = await Promise.all([
     Promise.all(FEEDS.map(fetchFeed)),
     Promise.all(CLINICAL_FEEDS.map(fetchFeed)),
     Promise.all(RWE_FEEDS.map(fetchFeed)),
+    Promise.all(BENEFITS_FEEDS.map(fetchFeed)),
+    Promise.all(CT_FEEDS.map(fetchFeed)),
+    Promise.all(IMAGING_FEEDS.map(fetchFeed)),
   ]);
 
   // --- M&A tab: de-dup from general feeds only ---
@@ -837,6 +1259,57 @@ async function loadAll() {
     .filter(a => isWithin30Days(a) && isRweVendor(a))
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 
+  // --- Benefits Analytics tab: de-dup from general + benefits-specific feeds ---
+  const seenBen = new Set();
+  const benRaw = [];
+  [...generalResults, ...benOnlyResults].forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title) return;
+      if (seenBen.has(a.url)) return;
+      seenBen.add(a.url);
+      benRaw.push(a);
+    });
+  });
+
+  // Process Benefits Analytics tab (last 30 days + vendor keywords)
+  benArticles = benRaw
+    .filter(a => isWithin30Days(a) && isBenVendor(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // --- Clinical Trials tab: de-dup from general + CT-specific feeds ---
+  const seenCt = new Set();
+  const ctRaw = [];
+  [...generalResults, ...ctOnlyResults].forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title) return;
+      if (seenCt.has(a.url)) return;
+      seenCt.add(a.url);
+      ctRaw.push(a);
+    });
+  });
+
+  // Process Clinical Trials tab (last 30 days + vendor keywords)
+  ctArticles = ctRaw
+    .filter(a => isWithin30Days(a) && isCtVendor(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // --- Imaging tab: de-dup from general + imaging-specific feeds ---
+  const seenImg = new Set();
+  const imgRaw = [];
+  [...generalResults, ...imgOnlyResults].forEach(items => {
+    items.forEach(a => {
+      if (!a.url || !a.title) return;
+      if (seenImg.has(a.url)) return;
+      seenImg.add(a.url);
+      imgRaw.push(a);
+    });
+  });
+
+  // Process Imaging tab (last 30 days + vendor keywords)
+  imgArticles = imgRaw
+    .filter(a => isWithin30Days(a) && isImgVendor(a))
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
   // Timestamp
   const now = new Date();
   document.getElementById('ts').textContent =
@@ -859,6 +1332,18 @@ async function loadAll() {
   const rpb = document.getElementById('rweProgBar');
   if (rpb) rpb.style.width = '100%';
   renderRwe();
+
+  const bpb = document.getElementById('benProgBar');
+  if (bpb) bpb.style.width = '100%';
+  renderBenefits();
+
+  const cpb2 = document.getElementById('ctProgBar');
+  if (cpb2) cpb2.style.width = '100%';
+  renderCt();
+
+  const ipb = document.getElementById('imgProgBar');
+  if (ipb) ipb.style.width = '100%';
+  renderImg();
 }
 
 function showMandALoader() {
@@ -893,6 +1378,39 @@ function showRweLoader() {
       <div class="spinner purple"></div>
       <div class="loader-txt">Fetching real world evidence news…</div>
       <div class="prog-wrap"><div class="prog-bar purple" id="rweProgBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+function showBenefitsLoader() {
+  document.getElementById('benStatsBar').style.display  = 'none';
+  document.getElementById('benFilterBar').style.display = 'none';
+  document.getElementById('benFeed').innerHTML = `
+    <div class="loader">
+      <div class="spinner amber"></div>
+      <div class="loader-txt">Fetching benefits analytics news…</div>
+      <div class="prog-wrap"><div class="prog-bar amber" id="benProgBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+function showCtLoader() {
+  document.getElementById('ctStatsBar').style.display  = 'none';
+  document.getElementById('ctFilterBar').style.display = 'none';
+  document.getElementById('ctFeed').innerHTML = `
+    <div class="loader">
+      <div class="spinner cyan"></div>
+      <div class="loader-txt">Fetching clinical trials news…</div>
+      <div class="prog-wrap"><div class="prog-bar cyan" id="ctProgBar" style="width:5%"></div></div>
+    </div>`;
+}
+
+function showImgLoader() {
+  document.getElementById('imgStatsBar').style.display  = 'none';
+  document.getElementById('imgFilterBar').style.display = 'none';
+  document.getElementById('imgFeed').innerHTML = `
+    <div class="loader">
+      <div class="spinner rose"></div>
+      <div class="loader-txt">Fetching imaging news…</div>
+      <div class="prog-wrap"><div class="prog-bar rose" id="imgProgBar" style="width:5%"></div></div>
     </div>`;
 }
 
@@ -1040,6 +1558,150 @@ function renderRwe() {
 }
 
 /* ─────────────────────────────────────────────
+   Render — Benefits Analytics
+───────────────────────────────────────────── */
+function renderBenefits() {
+  const feedEl    = document.getElementById('benFeed');
+  const statsBar  = document.getElementById('benStatsBar');
+  const filterBar = document.getElementById('benFilterBar');
+
+  if (benArticles.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">📊</div>
+        <h3>No benefits analytics news found in the last 30 days</h3>
+        <p>No articles mentioning Truven, Springbuk, Cedar Gate, Certilytics, MedeAnalytics, Artemis Health, Nomi Health, Mercer, Milliman, Willis Towers Watson, AON, or Brown and Brown were found.<br>Try clicking Refresh to reload feeds.</p>
+      </div>`;
+    return;
+  }
+
+  const coveredVendors = new Set();
+  const coveredSources = new Set();
+  benArticles.forEach(a => {
+    matchedBenVendors(a).forEach(v => coveredVendors.add(v.id));
+    coveredSources.add(a._sourceName);
+  });
+
+  document.getElementById('benCntArticles').textContent = benArticles.length;
+  document.getElementById('benCntVendors').textContent  = coveredVendors.size;
+  document.getElementById('benCntSources').textContent  = coveredSources.size;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  const filtered = activeBenFilter === 'all'
+    ? benArticles
+    : benArticles.filter(a => matchedBenVendors(a).some(v => v.id === activeBenFilter));
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No articles for this vendor in the last 30 days</h3>
+        <p>Try a different vendor filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(benCard).join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────────
+   Render — Clinical Trials
+───────────────────────────────────────────── */
+function renderCt() {
+  const feedEl    = document.getElementById('ctFeed');
+  const statsBar  = document.getElementById('ctStatsBar');
+  const filterBar = document.getElementById('ctFilterBar');
+
+  if (ctArticles.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🧪</div>
+        <h3>No clinical trials news found in the last 30 days</h3>
+        <p>No articles mentioning Zelta, Veeva, Oracle Clinical, Medrio, Medidata, Greenphire, Suvoda, or IQVIA were found.<br>Try clicking Refresh to reload feeds.</p>
+      </div>`;
+    return;
+  }
+
+  const coveredVendors = new Set();
+  const coveredSources = new Set();
+  ctArticles.forEach(a => {
+    matchedCtVendors(a).forEach(v => coveredVendors.add(v.id));
+    coveredSources.add(a._sourceName);
+  });
+
+  document.getElementById('ctCntArticles').textContent = ctArticles.length;
+  document.getElementById('ctCntVendors').textContent  = coveredVendors.size;
+  document.getElementById('ctCntSources').textContent  = coveredSources.size;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  const filtered = activeCtFilter === 'all'
+    ? ctArticles
+    : ctArticles.filter(a => matchedCtVendors(a).some(v => v.id === activeCtFilter));
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No articles for this vendor in the last 30 days</h3>
+        <p>Try a different vendor filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(ctCard).join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────────
+   Render — Imaging
+───────────────────────────────────────────── */
+function renderImg() {
+  const feedEl    = document.getElementById('imgFeed');
+  const statsBar  = document.getElementById('imgStatsBar');
+  const filterBar = document.getElementById('imgFilterBar');
+
+  if (imgArticles.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🩻</div>
+        <h3>No imaging news found in the last 30 days</h3>
+        <p>No articles mentioning Merge Healthcare, GE Healthcare, Intelerad, Sectra, AGFA, Philips, or Change Healthcare were found.<br>Try clicking Refresh to reload feeds.</p>
+      </div>`;
+    return;
+  }
+
+  const coveredVendors = new Set();
+  const coveredSources = new Set();
+  imgArticles.forEach(a => {
+    matchedImgVendors(a).forEach(v => coveredVendors.add(v.id));
+    coveredSources.add(a._sourceName);
+  });
+
+  document.getElementById('imgCntArticles').textContent = imgArticles.length;
+  document.getElementById('imgCntVendors').textContent  = coveredVendors.size;
+  document.getElementById('imgCntSources').textContent  = coveredSources.size;
+  statsBar.style.display  = 'flex';
+  filterBar.style.display = 'flex';
+
+  const filtered = activeImgFilter === 'all'
+    ? imgArticles
+    : imgArticles.filter(a => matchedImgVendors(a).some(v => v.id === activeImgFilter));
+
+  if (filtered.length === 0) {
+    feedEl.innerHTML = `
+      <div class="empty">
+        <div class="icon">🔍</div>
+        <h3>No articles for this vendor in the last 30 days</h3>
+        <p>Try a different vendor filter or click Refresh.</p>
+      </div>`;
+    return;
+  }
+
+  feedEl.innerHTML = `<div class="feed">${filtered.map(imgCard).join('')}</div>`;
+}
+
+/* ─────────────────────────────────────────────
    Card renderers
 ───────────────────────────────────────────── */
 function mandaCard(a) {
@@ -1106,6 +1768,96 @@ function rweCard(a) {
   const vendorBadges = vendors.map(v => `<span class="badge-rwe-vendor">${esc(v.label)}</span>`).join('');
   return `
     <article class="card rwe">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        ${vendorBadges}
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+function benCard(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+  const vendors = matchedBenVendors(a);
+  const vendorBadges = vendors.map(v => `<span class="badge-ben-vendor">${esc(v.label)}</span>`).join('');
+  return `
+    <article class="card ben">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        ${vendorBadges}
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+function ctCard(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+  const vendors = matchedCtVendors(a);
+  const vendorBadges = vendors.map(v => `<span class="badge-ct-vendor">${esc(v.label)}</span>`).join('');
+  return `
+    <article class="card ct">
+      <div class="card-meta">
+        <span class="badge-src">${esc(a._sourceName)}</span>
+        ${vendorBadges}
+        <span class="badge-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+          ${date}
+        </span>
+      </div>
+      <h2 class="card-title">
+        <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">${esc(a.title)}</a>
+      </h2>
+      ${summary ? `<p class="card-body">${esc(summary)}</p>` : ''}
+      <a class="read-more" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+        Read full article
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </article>`;
+}
+
+function imgCard(a) {
+  const date    = relDate(a.publishedAt);
+  const summary = snippet(a.description);
+  const vendors = matchedImgVendors(a);
+  const vendorBadges = vendors.map(v => `<span class="badge-img-vendor">${esc(v.label)}</span>`).join('');
+  return `
+    <article class="card img">
       <div class="card-meta">
         <span class="badge-src">${esc(a._sourceName)}</span>
         ${vendorBadges}
@@ -1218,6 +1970,42 @@ document.getElementById('rweFilterBar').addEventListener('click', e => {
   btn.classList.add('on');
   activeRweFilter = btn.dataset.rwe;
   renderRwe();
+});
+
+/* ─────────────────────────────────────────────
+   Benefits Analytics vendor filter chips
+───────────────────────────────────────────── */
+document.getElementById('benFilterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#benFilterBar .chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeBenFilter = btn.dataset.ben;
+  renderBenefits();
+});
+
+/* ─────────────────────────────────────────────
+   Clinical Trials vendor filter chips
+───────────────────────────────────────────── */
+document.getElementById('ctFilterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#ctFilterBar .chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeCtFilter = btn.dataset.ct;
+  renderCt();
+});
+
+/* ─────────────────────────────────────────────
+   Imaging vendor filter chips
+───────────────────────────────────────────── */
+document.getElementById('imgFilterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  document.querySelectorAll('#imgFilterBar .chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  activeImgFilter = btn.dataset.img;
+  renderImg();
 });
 
 /* ─────────────────────────────────────────────
